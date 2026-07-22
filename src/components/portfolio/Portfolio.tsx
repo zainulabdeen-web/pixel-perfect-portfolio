@@ -842,7 +842,7 @@ function Footer() {
             { Icon: Linkedin, href: LINKEDIN_URL, label: "LinkedIn", external: true },
             { Icon: FiverrIcon, href: FIVERR_URL, label: "Fiverr", external: true },
             { Icon: Github, href: "#", label: "GitHub", external: false },
-            { Icon: Mail, href: "mailto:hello@zaingill.dev", label: "Email", external: false },
+            { Icon: Mail, href: `mailto:${CONTACT_EMAIL}`, label: "Email", external: false },
           ].map(({ Icon, href, label, external }, i) => (
             <a key={i} href={href} aria-label={label}
               {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
