@@ -19,9 +19,38 @@ import p3 from "@/assets/project-3.jpg";
 import p4 from "@/assets/project-4.jpg";
 import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
-import t1 from "@/assets/testimonial-1.jpg";
-import t2 from "@/assets/testimonial-2.jpg";
-import t3 from "@/assets/testimonial-3.jpg";
+/* ---------- social links ---------- */
+const LINKEDIN_URL = "https://www.linkedin.com/in/zain-ul-abdeen-0853b539b";
+const FIVERR_URL = "https://www.fiverr.com/s/R7L34w8";
+
+/* ---------- Fiverr icon (lucide-style) ---------- */
+function FiverrIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M18.3 10.6h-2.4v-.6c0-.7.5-1 1.2-1h1V6.4h-1.4c-2.4 0-3.9 1.3-3.9 3.6v.6H9.5v-.6c0-.7.5-1 1.2-1h.9V6.4h-1.3c-2.4 0-3.9 1.3-3.9 3.6v.6H4.8v2.6h1.6v5.4h3.1v-5.4h3.3v5.4h3.1v-5.4h2.4v-2.6zM17.3 5.6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+    </svg>
+  );
+}
+
+/* ---------- initials avatar ---------- */
+function Avatar({ name, className }: { name: string; className?: string }) {
+  const initials = name.split(" ").map(n => n[0]).slice(0, 2).join("").toUpperCase();
+  // deterministic hue from name
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  const hue = Math.abs(hash) % 360;
+  return (
+    <div
+      className={className}
+      style={{
+        background: `linear-gradient(135deg, hsl(${hue} 70% 45%), hsl(${(hue + 40) % 360} 70% 35%))`,
+      }}
+      aria-label={name}
+    >
+      <span className="text-sm font-semibold text-white">{initials}</span>
+    </div>
+  );
+}
 
 /* ---------- helpers ---------- */
 const fadeUp = {
