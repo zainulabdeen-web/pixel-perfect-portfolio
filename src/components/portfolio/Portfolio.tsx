@@ -157,17 +157,17 @@ const timeline = [
 ];
 
 const testimonials = [
-  { img: t1, name: "Ahmed Khan", role: "Founder, NexaCloud", stars: 5,
+  { name: "Ahmed Khan", role: "Founder, NexaCloud", stars: 5,
     text: "Zain rebuilt our React dashboard from scratch. Fast, clean and pixel-perfect from Figma. Would hire again in a heartbeat." },
-  { img: t2, name: "Sophia Martinez", role: "Marketing Lead, BrightLabs", stars: 5,
+  { name: "Sophia Martinez", role: "Marketing Lead, BrightLabs", stars: 5,
     text: "Our organic traffic tripled in three months. Zain's SEO work is meticulous and results-driven." },
-  { img: t3, name: "Daniel Weber", role: "CEO, LeadForge", stars: 5,
+  { name: "Daniel Weber", role: "CEO, LeadForge", stars: 5,
     text: "Verified leads that actually convert. Best B2B researcher I've worked with on Fiverr." },
-  { img: t1, name: "Luca Romano", role: "CTO, Formaggi.io", stars: 5,
+  { name: "Luca Romano", role: "CTO, Formaggi.io", stars: 5,
     text: "Elementor build shipped 2 days early and the site loads faster than our old React app." },
-  { img: t2, name: "Amelia Chen", role: "PM, DriftUX", stars: 5,
+  { name: "Amelia Chen", role: "PM, DriftUX", stars: 5,
     text: "Communication was flawless. He genuinely cares about your product." },
-  { img: t3, name: "Marcus Bell", role: "Founder, Reachly", stars: 5,
+  { name: "Marcus Bell", role: "Founder, Reachly", stars: 5,
     text: "Landing page conversion jumped from 1.8% to 5.4%. Enough said." },
 ];
 
