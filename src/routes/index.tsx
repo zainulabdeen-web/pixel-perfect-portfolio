@@ -5,13 +5,13 @@ import { Toaster } from "@/components/ui/sonner";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Zain Gill — Freelance Web Developer & Digital Solutions Expert" },
+      { title: "Zain Ul Abdeen — Freelance Web Developer & Digital Solutions Expert" },
       {
         name: "description",
         content:
           "Freelance Web Developer specializing in React JS, WordPress, SEO, and B2B lead generation. Building fast, responsive websites that convert.",
       },
-      { property: "og:title", content: "Zain Gill — Freelance Web Developer & Digital Solutions Expert" },
+      { property: "og:title", content: "Zain Ul Abdeen — Freelance Web Developer & Digital Solutions Expert" },
       {
         property: "og:description",
         content:
