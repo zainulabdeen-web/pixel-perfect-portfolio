@@ -679,12 +679,13 @@ function Contact() {
             <div className="text-xs uppercase tracking-wider text-muted-foreground">Find me on</div>
             <div className="mt-3 flex gap-3">
               {[
-                { Icon: Github, href: "#" },
-                { Icon: Linkedin, href: "#" },
-                { Icon: Briefcase, href: "#" },
-                { Icon: Mail, href: "mailto:hello@zaingill.dev" },
-              ].map(({ Icon, href }, i) => (
-                <a key={i} href={href}
+                { Icon: Linkedin, href: LINKEDIN_URL, label: "LinkedIn", external: true },
+                { Icon: FiverrIcon, href: FIVERR_URL, label: "Fiverr", external: true },
+                { Icon: Github, href: "#", label: "GitHub", external: false },
+                { Icon: Mail, href: "mailto:hello@zaingill.dev", label: "Email", external: false },
+              ].map(({ Icon, href, label, external }, i) => (
+                <a key={i} href={href} aria-label={label}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary">
                   <Icon className="h-4 w-4" />
                 </a>
