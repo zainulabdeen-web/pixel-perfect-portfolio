@@ -191,7 +191,7 @@ function Nav() {
         <div className={`flex items-center justify-between rounded-2xl px-4 py-3 transition-all ${scrolled ? "glass-strong" : ""}`}>
           <a href="#top" className="flex items-center gap-2 font-display text-lg font-bold">
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary to-secondary text-primary-foreground">Z</span>
-            <span>Zain<span className="text-secondary">.</span></span>
+            <span>Zain Ul Abdeen<span className="text-secondary">.</span></span>
           </a>
           <nav className="hidden items-center gap-8 md:flex">
             {links.map(([label, id]) => (
