@@ -19,9 +19,38 @@ import p3 from "@/assets/project-3.jpg";
 import p4 from "@/assets/project-4.jpg";
 import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
-import t1 from "@/assets/testimonial-1.jpg";
-import t2 from "@/assets/testimonial-2.jpg";
-import t3 from "@/assets/testimonial-3.jpg";
+/* ---------- social links ---------- */
+const LINKEDIN_URL = "https://www.linkedin.com/in/zain-ul-abdeen-0853b539b";
+const FIVERR_URL = "https://www.fiverr.com/s/R7L34w8";
+
+/* ---------- Fiverr icon (lucide-style) ---------- */
+function FiverrIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M18.3 10.6h-2.4v-.6c0-.7.5-1 1.2-1h1V6.4h-1.4c-2.4 0-3.9 1.3-3.9 3.6v.6H9.5v-.6c0-.7.5-1 1.2-1h.9V6.4h-1.3c-2.4 0-3.9 1.3-3.9 3.6v.6H4.8v2.6h1.6v5.4h3.1v-5.4h3.3v5.4h3.1v-5.4h2.4v-2.6zM17.3 5.6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+    </svg>
+  );
+}
+
+/* ---------- initials avatar ---------- */
+function Avatar({ name, className }: { name: string; className?: string }) {
+  const initials = name.split(" ").map(n => n[0]).slice(0, 2).join("").toUpperCase();
+  // deterministic hue from name
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  const hue = Math.abs(hash) % 360;
+  return (
+    <div
+      className={className}
+      style={{
+        background: `linear-gradient(135deg, hsl(${hue} 70% 45%), hsl(${(hue + 40) % 360} 70% 35%))`,
+      }}
+      aria-label={name}
+    >
+      <span className="text-sm font-semibold text-white">{initials}</span>
+    </div>
+  );
+}
 
 /* ---------- helpers ---------- */
 const fadeUp = {
@@ -128,17 +157,17 @@ const timeline = [
 ];
 
 const testimonials = [
-  { img: t1, name: "Ahmed Khan", role: "Founder, NexaCloud", stars: 5,
+  { name: "Ahmed Khan", role: "Founder, NexaCloud", stars: 5,
     text: "Zain rebuilt our React dashboard from scratch. Fast, clean and pixel-perfect from Figma. Would hire again in a heartbeat." },
-  { img: t2, name: "Sophia Martinez", role: "Marketing Lead, BrightLabs", stars: 5,
+  { name: "Sophia Martinez", role: "Marketing Lead, BrightLabs", stars: 5,
     text: "Our organic traffic tripled in three months. Zain's SEO work is meticulous and results-driven." },
-  { img: t3, name: "Daniel Weber", role: "CEO, LeadForge", stars: 5,
+  { name: "Daniel Weber", role: "CEO, LeadForge", stars: 5,
     text: "Verified leads that actually convert. Best B2B researcher I've worked with on Fiverr." },
-  { img: t1, name: "Luca Romano", role: "CTO, Formaggi.io", stars: 5,
+  { name: "Luca Romano", role: "CTO, Formaggi.io", stars: 5,
     text: "Elementor build shipped 2 days early and the site loads faster than our old React app." },
-  { img: t2, name: "Amelia Chen", role: "PM, DriftUX", stars: 5,
+  { name: "Amelia Chen", role: "PM, DriftUX", stars: 5,
     text: "Communication was flawless. He genuinely cares about your product." },
-  { img: t3, name: "Marcus Bell", role: "Founder, Reachly", stars: 5,
+  { name: "Marcus Bell", role: "Founder, Reachly", stars: 5,
     text: "Landing page conversion jumped from 1.8% to 5.4%. Enough said." },
 ];
 
@@ -162,7 +191,7 @@ function Nav() {
         <div className={`flex items-center justify-between rounded-2xl px-4 py-3 transition-all ${scrolled ? "glass-strong" : ""}`}>
           <a href="#top" className="flex items-center gap-2 font-display text-lg font-bold">
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary to-secondary text-primary-foreground">Z</span>
-            <span>Zain<span className="text-secondary">.</span></span>
+            <span>Zain Ul Abdeen<span className="text-secondary">.</span></span>
           </a>
           <nav className="hidden items-center gap-8 md:flex">
             {links.map(([label, id]) => (
@@ -244,7 +273,7 @@ function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="mt-5 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-            Hi, I'm <span className="text-gradient">Zain Gill</span>
+            Hi, I'm <span className="text-gradient">Zain Ul Abdeen</span>
             <span className="block text-3xl font-medium text-muted-foreground sm:text-4xl lg:text-5xl mt-3">
               I build digital products that convert.
             </span>
@@ -309,10 +338,10 @@ function Hero() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}
             className="absolute -top-4 -right-4 hidden rounded-2xl glass-strong p-4 sm:block animate-float-slow" style={{ animationDelay: "1s" }}>
             <div className="flex items-center gap-2 text-sm">
-              <div className="flex -space-x-2">
-                <img src={t1} alt="" className="h-7 w-7 rounded-full border-2 border-background object-cover" />
-                <img src={t2} alt="" className="h-7 w-7 rounded-full border-2 border-background object-cover" />
-                <img src={t3} alt="" className="h-7 w-7 rounded-full border-2 border-background object-cover" />
+            <div className="flex -space-x-2">
+                <Avatar name="Ahmed Khan" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="Sophia Martinez" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="Daniel Weber" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
               </div>
               <span className="font-medium">50+ happy clients</span>
             </div>
@@ -331,7 +360,7 @@ function About() {
       <div className="grid gap-8 lg:grid-cols-3">
         <motion.div {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
           <p className="text-lg leading-relaxed text-foreground/90">
-            I'm <span className="font-semibold text-foreground">Zain Gill</span> — a freelance web developer and digital
+            I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span> — a freelance web developer and digital
             solutions expert focused on outcomes, not just deliverables. Over the last four+ years I've helped founders and
             marketing teams turn ideas into fast, responsive, SEO-optimized websites that actually generate leads.
           </p>
@@ -580,8 +609,7 @@ function Testimonials() {
             </div>
             <p className="mt-4 text-sm leading-relaxed text-foreground/90">"{t.text}"</p>
             <div className="mt-5 flex items-center gap-3 border-t border-white/5 pt-4">
-              <img src={t.img} alt={t.name} width={44} height={44} loading="lazy"
-                className="h-11 w-11 rounded-full object-cover ring-2 ring-primary/30" />
+              <Avatar name={t.name} className="grid h-11 w-11 place-items-center rounded-full ring-2 ring-primary/30" />
               <div>
                 <div className="text-sm font-semibold">{t.name}</div>
                 <div className="text-xs text-muted-foreground">{t.role}</div>
@@ -651,12 +679,13 @@ function Contact() {
             <div className="text-xs uppercase tracking-wider text-muted-foreground">Find me on</div>
             <div className="mt-3 flex gap-3">
               {[
-                { Icon: Github, href: "#" },
-                { Icon: Linkedin, href: "#" },
-                { Icon: Briefcase, href: "#" },
-                { Icon: Mail, href: "mailto:hello@zaingill.dev" },
-              ].map(({ Icon, href }, i) => (
-                <a key={i} href={href}
+                { Icon: Linkedin, href: LINKEDIN_URL, label: "LinkedIn", external: true },
+                { Icon: FiverrIcon, href: FIVERR_URL, label: "Fiverr", external: true },
+                { Icon: Github, href: "#", label: "GitHub", external: false },
+                { Icon: Mail, href: "mailto:hello@zaingill.dev", label: "Email", external: false },
+              ].map(({ Icon, href, label, external }, i) => (
+                <a key={i} href={href} aria-label={label}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary">
                   <Icon className="h-4 w-4" />
                 </a>
@@ -705,11 +734,18 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 sm:flex sm:justify-between">
         <div className="min-w-0 flex items-center gap-2 text-sm">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-secondary text-primary-foreground text-sm font-bold">Z</span>
-          <span className="truncate text-muted-foreground">© {new Date().getFullYear()} Zain Gill. Crafted with care.</span>
+          <span className="truncate text-muted-foreground">© {new Date().getFullYear()} Zain Ul Abdeen. Crafted with care.</span>
         </div>
         <div className="flex shrink-0 gap-2">
-          {[Github, Linkedin, Briefcase, Mail].map((Icon, i) => (
-            <a key={i} href="#" className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-muted-foreground transition-all hover:border-primary/40 hover:text-primary">
+          {[
+            { Icon: Linkedin, href: LINKEDIN_URL, label: "LinkedIn", external: true },
+            { Icon: FiverrIcon, href: FIVERR_URL, label: "Fiverr", external: true },
+            { Icon: Github, href: "#", label: "GitHub", external: false },
+            { Icon: Mail, href: "mailto:hello@zaingill.dev", label: "Email", external: false },
+          ].map(({ Icon, href, label, external }, i) => (
+            <a key={i} href={href} aria-label={label}
+              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-muted-foreground transition-all hover:border-primary/40 hover:text-primary">
               <Icon className="h-4 w-4" />
             </a>
           ))}

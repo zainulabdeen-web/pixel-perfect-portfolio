@@ -77,9 +77,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Zain Gill — Freelance Web Developer" },
+      { title: "Zain Ul Abdeen — Freelance Web Developer" },
       { name: "description", content: "Freelance Web Developer, React JS, WordPress, SEO & Lead Generation Expert." },
-      { name: "author", content: "Zain Gill" },
+      { name: "author", content: "Zain Ul Abdeen" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
