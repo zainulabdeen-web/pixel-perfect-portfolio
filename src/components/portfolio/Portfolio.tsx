@@ -273,7 +273,7 @@ function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="mt-5 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-            Hi, I'm <span className="text-gradient">Zain Gill</span>
+            Hi, I'm <span className="text-gradient">Zain Ul Abdeen</span>
             <span className="block text-3xl font-medium text-muted-foreground sm:text-4xl lg:text-5xl mt-3">
               I build digital products that convert.
             </span>
