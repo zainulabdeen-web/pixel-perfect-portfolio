@@ -338,10 +338,10 @@ function Hero() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}
             className="absolute -top-4 -right-4 hidden rounded-2xl glass-strong p-4 sm:block animate-float-slow" style={{ animationDelay: "1s" }}>
             <div className="flex items-center gap-2 text-sm">
-              <div className="flex -space-x-2">
-                <img src={t1} alt="" className="h-7 w-7 rounded-full border-2 border-background object-cover" />
-                <img src={t2} alt="" className="h-7 w-7 rounded-full border-2 border-background object-cover" />
-                <img src={t3} alt="" className="h-7 w-7 rounded-full border-2 border-background object-cover" />
+            <div className="flex -space-x-2">
+                <Avatar name="Ahmed Khan" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="Sophia Martinez" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="Daniel Weber" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
               </div>
               <span className="font-medium">50+ happy clients</span>
             </div>
