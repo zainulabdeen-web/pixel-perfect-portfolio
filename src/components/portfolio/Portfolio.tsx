@@ -734,11 +734,18 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 sm:flex sm:justify-between">
         <div className="min-w-0 flex items-center gap-2 text-sm">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-secondary text-primary-foreground text-sm font-bold">Z</span>
-          <span className="truncate text-muted-foreground">© {new Date().getFullYear()} Zain Gill. Crafted with care.</span>
+          <span className="truncate text-muted-foreground">© {new Date().getFullYear()} Zain Ul Abdeen. Crafted with care.</span>
         </div>
         <div className="flex shrink-0 gap-2">
-          {[Github, Linkedin, Briefcase, Mail].map((Icon, i) => (
-            <a key={i} href="#" className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-muted-foreground transition-all hover:border-primary/40 hover:text-primary">
+          {[
+            { Icon: Linkedin, href: LINKEDIN_URL, label: "LinkedIn", external: true },
+            { Icon: FiverrIcon, href: FIVERR_URL, label: "Fiverr", external: true },
+            { Icon: Github, href: "#", label: "GitHub", external: false },
+            { Icon: Mail, href: "mailto:hello@zaingill.dev", label: "Email", external: false },
+          ].map(({ Icon, href, label, external }, i) => (
+            <a key={i} href={href} aria-label={label}
+              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-muted-foreground transition-all hover:border-primary/40 hover:text-primary">
               <Icon className="h-4 w-4" />
             </a>
           ))}
