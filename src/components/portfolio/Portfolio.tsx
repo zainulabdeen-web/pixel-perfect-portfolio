@@ -609,8 +609,7 @@ function Testimonials() {
             </div>
             <p className="mt-4 text-sm leading-relaxed text-foreground/90">"{t.text}"</p>
             <div className="mt-5 flex items-center gap-3 border-t border-white/5 pt-4">
-              <img src={t.img} alt={t.name} width={44} height={44} loading="lazy"
-                className="h-11 w-11 rounded-full object-cover ring-2 ring-primary/30" />
+              <Avatar name={t.name} className="grid h-11 w-11 place-items-center rounded-full ring-2 ring-primary/30" />
               <div>
                 <div className="text-sm font-semibold">{t.name}</div>
                 <div className="text-xs text-muted-foreground">{t.role}</div>
