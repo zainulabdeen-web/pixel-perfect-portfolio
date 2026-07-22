@@ -370,6 +370,24 @@ function About() {
       subtitle="I partner with startups, agencies and established businesses to build digital solutions that look premium and perform even better.">
       <div className="grid gap-8 lg:grid-cols-3">
         <motion.div {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
+          <div className="mb-6 flex items-center gap-4">
+            <div className="relative shrink-0">
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary/50 to-secondary/40 blur" />
+              <img
+                src={profile}
+                alt="Zain Ul Abdeen"
+                width={96}
+                height={96}
+                loading="lazy"
+                decoding="async"
+                className="relative h-20 w-20 rounded-full object-cover ring-2 ring-primary/30 sm:h-24 sm:w-24"
+              />
+            </div>
+            <div className="min-w-0">
+              <div className="text-lg font-semibold">Zain Ul Abdeen</div>
+              <div className="text-sm text-muted-foreground">Freelance Web Developer</div>
+            </div>
+          </div>
           <p className="text-lg leading-relaxed text-foreground/90">
             I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span> — a freelance web developer and digital
             solutions expert focused on outcomes, not just deliverables. Over the last four+ years I've helped founders and
