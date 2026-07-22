@@ -682,23 +682,82 @@ function Stats() {
 
 /* ---------- Contact ---------- */
 function Contact() {
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Message sent! I'll get back within 24 hours.");
-    (e.currentTarget as HTMLFormElement).reset();
+    if (status === "loading") return;
+
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const payload = {
+      name: String(fd.get("name") || "").trim(),
+      email: String(fd.get("email") || "").trim(),
+      subject: String(fd.get("subject") || "").trim(),
+      message: String(fd.get("message") || "").trim(),
+    };
+
+    if (!payload.name || !payload.email || !payload.subject || !payload.message) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setStatus("loading");
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: payload.name,
+          email: payload.email,
+          _subject: `Portfolio Contact: ${payload.subject}`,
+          subject: payload.subject,
+          message: payload.message,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      setStatus("success");
+      toast.success("Message sent! I'll get back within 24 hours.");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+      toast.error("Failed to send message. Please email me directly.");
+    }
   };
+
   return (
     <Section id="contact" eyebrow="Contact" title="Let's build something great"
       subtitle="Tell me about your project — I'll respond within 24 hours.">
       <div className="grid gap-8 lg:grid-cols-5">
         <motion.div {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
-          <h3 className="text-xl font-semibold">Get in touch</h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Available for freelance projects, part-time contracts and long-term partnerships.
-          </p>
+          <div className="flex flex-col items-center text-center">
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary/50 to-secondary/40 blur" />
+              <img
+                src={profile}
+                alt="Zain Ul Abdeen"
+                width={112}
+                height={112}
+                loading="lazy"
+                decoding="async"
+                className="relative h-28 w-28 rounded-full object-cover ring-2 ring-primary/30"
+              />
+            </div>
+            <h3 className="mt-4 text-xl font-semibold">Get in touch</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Available for freelance projects, part-time contracts and long-term partnerships.
+            </p>
+          </div>
           <div className="mt-6 space-y-4 text-sm">
-            <a href="mailto:hello@zaingill.dev" className="flex items-center gap-3 text-foreground/90 hover:text-primary">
-              <Mail className="h-4 w-4 text-primary" /> hello@zaingill.dev
+            <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-3 text-foreground/90 hover:text-primary">
+              <Mail className="h-4 w-4 text-primary" /> {CONTACT_EMAIL}
             </a>
             <div className="flex items-center gap-3 text-foreground/90">
               <MapPin className="h-4 w-4 text-primary" /> Working remotely, worldwide
@@ -711,7 +770,7 @@ function Contact() {
                 { Icon: Linkedin, href: LINKEDIN_URL, label: "LinkedIn", external: true },
                 { Icon: FiverrIcon, href: FIVERR_URL, label: "Fiverr", external: true },
                 { Icon: Github, href: "#", label: "GitHub", external: false },
-                { Icon: Mail, href: "mailto:hello@zaingill.dev", label: "Email", external: false },
+                { Icon: Mail, href: `mailto:${CONTACT_EMAIL}`, label: "Email", external: false },
               ].map(({ Icon, href, label, external }, i) => (
                 <a key={i} href={href} aria-label={label}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -724,32 +783,45 @@ function Contact() {
         </motion.div>
 
         <motion.form {...fadeUp} transition={{ delay: 0.15, duration: 0.6 }}
-          onSubmit={onSubmit} className="rounded-3xl glass p-8 lg:col-span-3">
+          onSubmit={onSubmit} noValidate className="rounded-3xl glass p-8 lg:col-span-3">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="text-xs text-muted-foreground">Name</label>
-              <Input required maxLength={100} placeholder="Your name" className="mt-1 border-white/10 bg-white/5" />
+              <label htmlFor="cf-name" className="text-xs text-muted-foreground">Name</label>
+              <Input id="cf-name" name="name" required maxLength={100} placeholder="Your name" className="mt-1 border-white/10 bg-white/5" />
             </div>
             <div>
-              <label className="text-xs text-muted-foreground">Email</label>
-              <Input required type="email" maxLength={255} placeholder="you@company.com" className="mt-1 border-white/10 bg-white/5" />
-            </div>
-            <div>
-              <label className="text-xs text-muted-foreground">Project Type</label>
-              <Input required maxLength={120} placeholder="React website / SEO / Lead gen…" className="mt-1 border-white/10 bg-white/5" />
-            </div>
-            <div>
-              <label className="text-xs text-muted-foreground">Budget</label>
-              <Input required maxLength={60} placeholder="e.g. $500 – $2,000" className="mt-1 border-white/10 bg-white/5" />
+              <label htmlFor="cf-email" className="text-xs text-muted-foreground">Email</label>
+              <Input id="cf-email" name="email" required type="email" maxLength={255} placeholder="you@company.com" className="mt-1 border-white/10 bg-white/5" />
             </div>
           </div>
           <div className="mt-4">
-            <label className="text-xs text-muted-foreground">Message</label>
-            <Textarea required maxLength={2000} placeholder="Tell me about your project…" rows={6} className="mt-1 border-white/10 bg-white/5" />
+            <label htmlFor="cf-subject" className="text-xs text-muted-foreground">Subject</label>
+            <Input id="cf-subject" name="subject" required maxLength={160} placeholder="What's this about?" className="mt-1 border-white/10 bg-white/5" />
           </div>
-          <Button type="submit" size="lg" className="mt-6 w-full rounded-full bg-gradient-to-r from-primary to-primary/70 glow-blue">
-            Send Message <Send className="ml-1 h-4 w-4" />
+          <div className="mt-4">
+            <label htmlFor="cf-message" className="text-xs text-muted-foreground">Message</label>
+            <Textarea id="cf-message" name="message" required maxLength={2000} placeholder="Tell me about your project…" rows={6} className="mt-1 border-white/10 bg-white/5" />
+          </div>
+          <Button
+            type="submit"
+            size="lg"
+            disabled={status === "loading"}
+            className="mt-6 w-full rounded-full bg-gradient-to-r from-primary to-primary/70 glow-blue disabled:opacity-70"
+          >
+            {status === "loading" ? (
+              <>Sending… <RefreshCw className="ml-1 h-4 w-4 animate-spin" /></>
+            ) : (
+              <>Send Message <Send className="ml-1 h-4 w-4" /></>
+            )}
           </Button>
+          {status === "success" && (
+            <p className="mt-3 text-center text-sm text-green-400">Thanks! Your message has been sent successfully.</p>
+          )}
+          {status === "error" && (
+            <p className="mt-3 text-center text-sm text-red-400">
+              Something went wrong. Please email me at {CONTACT_EMAIL}.
+            </p>
+          )}
         </motion.form>
       </div>
     </Section>
