@@ -12,13 +12,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
 
-import hero from "@/assets/hero-illustration.jpg";
+import profileAsset from "@/assets/zain-profile.jpg.asset.json";
+const profile = profileAsset.url;
 import p1 from "@/assets/project-1.jpg";
 import p2 from "@/assets/project-2.jpg";
 import p3 from "@/assets/project-3.jpg";
 import p4 from "@/assets/project-4.jpg";
 import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
+
+const CONTACT_EMAIL = "zaingill0770@gmail.com";
 /* ---------- social links ---------- */
 const LINKEDIN_URL = "https://www.linkedin.com/in/zain-ul-abdeen-0853b539b";
 const FIVERR_URL = "https://www.fiverr.com/s/R7L34w8";
