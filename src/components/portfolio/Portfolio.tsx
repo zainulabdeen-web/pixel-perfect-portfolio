@@ -319,9 +319,17 @@ function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.8 }}
           className="relative">
-          <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/40 to-secondary/30 blur-2xl" />
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 glass-strong">
-            <img src={hero} alt="Modern developer workspace illustration" width={1280} height={1280} className="h-full w-full object-cover" />
+          <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-primary/40 to-secondary/30 blur-2xl" />
+          <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-full border-4 border-white/10 glass-strong ring-4 ring-primary/20">
+            <img
+              src={profile}
+              alt="Zain Ul Abdeen — Freelance Web Developer"
+              width={800}
+              height={800}
+              loading="eager"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
           </div>
 
           {/* floating stat card */}
