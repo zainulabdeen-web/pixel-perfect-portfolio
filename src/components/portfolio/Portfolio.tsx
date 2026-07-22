@@ -360,7 +360,7 @@ function About() {
       <div className="grid gap-8 lg:grid-cols-3">
         <motion.div {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
           <p className="text-lg leading-relaxed text-foreground/90">
-            I'm <span className="font-semibold text-foreground">Zain Gill</span> — a freelance web developer and digital
+            I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span> — a freelance web developer and digital
             solutions expert focused on outcomes, not just deliverables. Over the last four+ years I've helped founders and
             marketing teams turn ideas into fast, responsive, SEO-optimized websites that actually generate leads.
           </p>
