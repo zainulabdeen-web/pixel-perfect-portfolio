@@ -180,7 +180,7 @@ function Nav() {
   }, []);
   const links = [
     ["About", "about"], ["Services", "services"], ["Skills", "skills"],
-    ["Work", "portfolio"], ["Contact", "contact"],
+    ["Work", "portfolio"], ["Reviews", "testimonials"], ["Contact", "contact"],
   ];
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? "py-3" : "py-5"}`}>
@@ -270,35 +270,29 @@ function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="mt-5 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-            Hi, I'm <span className="text-gradient">Zain Ul Abdeen</span>
-            <span className="block text-3xl font-medium text-muted-foreground sm:text-4xl lg:text-5xl mt-3">
-              I build digital products that convert.
-            </span>
+            Build. Fix. <span className="text-gradient">Optimize.</span> Grow.
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
             className="mt-5 max-w-xl text-sm font-medium tracking-wide text-primary/90">
-            Freelance Web Developer · React JS · WordPress Expert · SEO Specialist · Lead Generation Expert
+            WordPress Developer · SEO Specialist · B2B Lead Generation Expert
           </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
             className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Helping businesses build fast, responsive, SEO-optimized websites and generate quality leads that grow their business.
+            I'm Zain Ul Abdeen — helping businesses build reliable websites, solve technical issues, improve visibility and generate quality leads.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
             className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-primary/70 text-primary-foreground glow-blue hover:opacity-95">
-              <a href="#contact">Hire Me <ArrowRight className="ml-1 h-4 w-4" /></a>
+              <a href="#contact">Let's Work Together <ArrowRight className="ml-1 h-4 w-4" /></a>
             </Button>
             <Button asChild size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 hover:bg-white/10">
-              <a href="#portfolio">View Portfolio</a>
-            </Button>
-            <Button asChild size="lg" variant="ghost" className="rounded-full hover:bg-white/5">
-              <a href="#contact">Contact Me</a>
+              <a href="#portfolio">View My Work</a>
             </Button>
           </motion.div>
 
@@ -344,9 +338,9 @@ function Hero() {
             className="absolute -top-4 -right-4 hidden rounded-2xl glass-strong p-4 sm:block animate-float-slow" style={{ animationDelay: "1s" }}>
             <div className="flex items-center gap-2 text-sm">
             <div className="flex -space-x-2">
-                <Avatar name="Ahmed Khan" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
-                <Avatar name="Sophia Martinez" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
-                <Avatar name="Daniel Weber" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="adnanaadnan" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="henymorck" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="metno23" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
               </div>
               <span className="font-medium">50+ happy clients</span>
             </div>
@@ -360,8 +354,8 @@ function Hero() {
 /* ---------- About ---------- */
 function About() {
   return (
-    <Section id="about" eyebrow="About Me" title="Building the web, one pixel at a time"
-      subtitle="I partner with startups, agencies and established businesses to build digital solutions that look premium and perform even better.">
+    <Section id="about" eyebrow="About Me" title="Digital solutions built around business results"
+      subtitle="Clean execution, reliable communication and measurable outcomes.">
       <div className="grid gap-8 lg:grid-cols-3">
         <motion.div {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
           <div className="mb-6 flex items-center gap-4">
@@ -379,23 +373,23 @@ function About() {
             </div>
             <div className="min-w-0">
               <div className="text-lg font-semibold">Zain Ul Abdeen</div>
-              <div className="text-sm text-muted-foreground">Freelance Web Developer</div>
+              <div className="text-sm text-muted-foreground">WordPress · SEO · Lead Generation</div>
             </div>
           </div>
           <p className="text-lg leading-relaxed text-foreground/90">
-            I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span> — a freelance web developer and digital
-            solutions expert focused on outcomes, not just deliverables. Over the last four+ years I've helped founders and
-            marketing teams turn ideas into fast, responsive, SEO-optimized websites that actually generate leads.
+            I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span> — over the last 4+ years, I've worked on
+            websites, SEO campaigns and lead-generation projects with a focus on clean execution, reliable communication
+            and measurable outcomes.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            From <span className="text-primary font-medium">React JS</span> single-page applications to
-            <span className="text-primary font-medium"> Elementor-powered WordPress</span> business sites,
-            I blend clean engineering with a marketer's eye for conversion. I also run technical &amp; on-page
-            <span className="text-primary font-medium"> SEO</span> audits and build
-            <span className="text-primary font-medium"> B2B lead generation</span> pipelines that fill your calendar.
+            My core work is now centered on four services:
+            <span className="text-primary font-medium"> WordPress Development</span>,
+            <span className="text-primary font-medium"> WordPress Error Fixing</span>,
+            <span className="text-primary font-medium"> SEO Optimization</span> and
+            <span className="text-primary font-medium"> B2B Lead Generation</span>.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {["React JS", "Frontend", "WordPress", "Elementor", "SEO", "Lead Generation"].map(t => (
+            {["WordPress", "Elementor Pro", "WooCommerce", "SEO", "B2B Leads", "Data Research"].map(t => (
               <span key={t} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
                 {t}
               </span>
@@ -433,9 +427,9 @@ function About() {
 /* ---------- Services ---------- */
 function Services() {
   return (
-    <Section id="services" eyebrow="Services" title="What I do best"
-      subtitle="End-to-end web and growth services — from first pixel to first paying customer.">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <Section id="services" eyebrow="What I Do" title="Four services. One reliable partner."
+      subtitle="From building a website to fixing critical errors, improving search visibility and supplying targeted B2B data.">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {services.map((s, i) => (
           <motion.div
             key={s.title}
@@ -452,6 +446,7 @@ function Services() {
                 <s.icon className="h-6 w-6" />
               </div>
               <h3 className="text-xl font-semibold">{s.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
               <ul className="mt-4 space-y-2">
                 {s.items.map(it => (
                   <li key={it} className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -486,9 +481,9 @@ function SkillBar({ name, value, delay }: { name: string; value: number; delay: 
 
 function Skills() {
   return (
-    <Section id="skills" eyebrow="Skills" title="Tools of the trade"
-      subtitle="A modern toolkit for building, ranking and scaling web products.">
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <Section id="skills" eyebrow="Skills" title="Tools and expertise I use daily"
+      subtitle="The stack behind reliable websites, better rankings and quality leads.">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {skillGroups.map((g, gi) => (
           <motion.div key={g.title}
             initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
@@ -511,8 +506,8 @@ function Skills() {
 /* ---------- Portfolio ---------- */
 function PortfolioGrid() {
   return (
-    <Section id="portfolio" eyebrow="Portfolio" title="Selected recent work"
-      subtitle="A handful of projects across React, WordPress, SEO and lead generation.">
+    <Section id="portfolio" eyebrow="Selected Work" title="Projects aligned with my services"
+      subtitle="WordPress builds, error fixing, SEO optimization and B2B lead generation.">
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((p, i) => (
           <motion.article key={p.title}
@@ -526,20 +521,13 @@ function PortfolioGrid() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
             </div>
             <div className="p-6">
-              <h3 className="text-lg font-semibold">{p.title}</h3>
+              <span className="text-xs font-semibold uppercase tracking-wider text-primary">{p.cat}</span>
+              <h3 className="mt-2 text-lg font-semibold">{p.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {p.tech.map(t => (
                   <span key={t} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs text-muted-foreground">{t}</span>
                 ))}
-              </div>
-              <div className="mt-5 flex gap-2">
-                <Button asChild size="sm" className="rounded-full bg-gradient-to-r from-primary to-primary/70">
-                  <a href="#"><ExternalLink className="mr-1 h-3.5 w-3.5" /> Live Demo</a>
-                </Button>
-                <Button asChild size="sm" variant="outline" className="rounded-full border-white/15 bg-white/5">
-                  <a href="#"><Github className="mr-1 h-3.5 w-3.5" /> Source</a>
-                </Button>
               </div>
             </div>
           </motion.article>
@@ -573,48 +561,6 @@ function Why() {
   );
 }
 
-/* ---------- Timeline ---------- */
-function Timeline() {
-  return (
-    <Section id="experience" eyebrow="Experience" title="A journey in shipping"
-      subtitle="Six years of building for clients across the web stack.">
-      <div className="relative mx-auto max-w-4xl">
-        <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent md:left-1/2" />
-        <div className="space-y-10">
-          {timeline.map((e, i) => {
-            const right = i % 2 === 1;
-            return (
-              <motion.div key={e.year}
-                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5 }}
-                className={`relative grid grid-cols-[2rem_1fr] items-start gap-4 md:grid-cols-2 md:gap-12 ${right ? "md:[&>*:first-child]:order-2" : ""}`}>
-                <div className={`hidden md:block ${right ? "text-left" : "text-right"}`}>
-                  <div className="rounded-2xl glass p-6 inline-block max-w-md text-left">
-                    <div className="text-xs font-semibold uppercase tracking-wider text-secondary">{e.year}</div>
-                    <h3 className="mt-1 text-lg font-semibold">{e.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{e.text}</p>
-                  </div>
-                </div>
-                <div className="relative md:mx-auto">
-                  <div className="absolute left-4 top-3 -translate-x-1/2 md:left-0 md:-translate-x-[calc(50%+3rem)]">
-                    <div className="h-4 w-4 rounded-full bg-gradient-to-br from-primary to-secondary ring-4 ring-background" />
-                  </div>
-                </div>
-                <div className="md:hidden">
-                  <div className="rounded-2xl glass p-5">
-                    <div className="text-xs font-semibold uppercase tracking-wider text-secondary">{e.year}</div>
-                    <h3 className="mt-1 text-base font-semibold">{e.title}</h3>
-                    <p className="mt-1.5 text-sm text-muted-foreground">{e.text}</p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-    </Section>
-  );
-}
 
 /* ---------- Testimonials ---------- */
 function Testimonials() {
