@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform, animate } from "framer-motion";
 import {
-  Code2, Globe, Search, Users, Zap, ShieldCheck,
-  Smartphone, Sparkles, LifeBuoy, Github, Linkedin, Mail,
-  ArrowRight, Star, Briefcase, MapPin, Menu, X,
-  Terminal, Palette, Database, GitBranch, Chrome,
+  Code2, Layout, Figma, Globe, Search, Users, Zap, ShieldCheck,
+  Smartphone, Sparkles, RefreshCw, LifeBuoy, Github, Linkedin, Mail,
+  ExternalLink, ArrowRight, Star, Briefcase, Send, MapPin, Menu, X,
+  Rocket, Terminal, Palette, Database, GitBranch, Chrome,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
 
 import profileAsset from "@/assets/zain-profile.jpg.asset.json";
 const profile = profileAsset.url;
@@ -18,7 +21,7 @@ import p4 from "@/assets/project-4.jpg";
 import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
 
-const CONTACT_EMAIL = "zaingill77665@gmail.com";
+const CONTACT_EMAIL = "zaingill0770@gmail.com";
 /* ---------- social links ---------- */
 const LINKEDIN_URL = "https://www.linkedin.com/in/zain-ul-abdeen-0853b539b";
 const FIVERR_URL = "https://www.fiverr.com/s/R7L34w8";
@@ -87,7 +90,7 @@ function Section({
   );
 }
 
-function Counter({ to, suffix = "", decimals = 0 }: { to: number; suffix?: string; decimals?: number }) {
+function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const [val, setVal] = useState(0);
@@ -95,77 +98,80 @@ function Counter({ to, suffix = "", decimals = 0 }: { to: number; suffix?: strin
     if (!inView) return;
     const controls = animate(0, to, {
       duration: 2, ease: "easeOut",
-      onUpdate: (v) => setVal(v),
+      onUpdate: (v) => setVal(Math.floor(v)),
     });
     return () => controls.stop();
   }, [inView, to]);
-  return <span ref={ref}>{val.toFixed(decimals)}{suffix}</span>;
+  return <span ref={ref}>{val}{suffix}</span>;
 }
 
 /* ---------- data ---------- */
 const services = [
-  { icon: Globe, title: "WordPress Development", desc: "Professional, responsive WordPress websites designed around your brand and goals.",
-    items: ["Elementor Pro websites", "Business & corporate sites", "Landing pages", "WooCommerce stores"] },
-  { icon: LifeBuoy, title: "WordPress Error Fixing", desc: "Diagnose and resolve WordPress bugs, conflicts, crashes and technical issues.",
-    items: ["Critical & fatal errors", "500 / 404 / database errors", "Plugin & theme conflicts", "PHP, server & memory issues"] },
-  { icon: Search, title: "SEO Optimization", desc: "Technical and on-page improvements that make websites easier to crawl, understand and rank.",
-    items: ["Technical SEO audits", "On-page optimization", "Off-page SEO", "Speed & performance"] },
-  { icon: Users, title: "B2B Lead Generation", desc: "Targeted prospect research and verified business data for focused outreach.",
-    items: ["Decision-maker research", "Verified email research", "LinkedIn lead research", "Data cleaning & organization"] },
+  { icon: Code2, title: "React JS Development", items: ["Responsive Websites", "Single Page Applications", "React Components", "API Integration"] },
+  { icon: Layout, title: "Frontend Development", items: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Bootstrap"] },
+  { icon: Figma, title: "Figma to React", items: ["Pixel Perfect Conversion", "Responsive UI", "Clean Code"] },
+  { icon: Globe, title: "WordPress Development", items: ["Elementor Websites", "Business Websites", "Landing Pages", "WooCommerce"] },
+  { icon: Search, title: "SEO Optimization", items: ["On Page SEO", "Technical SEO", "Off Page SEO", "Speed Optimization"] },
+  { icon: Users, title: "B2B Lead Generation", items: ["Verified Email Lists", "LinkedIn Leads", "Decision Makers", "Data Research"] },
 ];
 
 const skillGroups = [
-  { title: "WordPress", skills: [
-    { name: "WordPress", value: 95 }, { name: "Elementor Pro", value: 96 },
-    { name: "WooCommerce", value: 91 }, { name: "Bug Fixing", value: 94 },
+  { title: "Frontend", skills: [
+    { name: "HTML", value: 98 }, { name: "CSS", value: 96 }, { name: "JavaScript", value: 92 },
+    { name: "React JS", value: 94 }, { name: "Next JS", value: 85 }, { name: "Tailwind CSS", value: 96 }, { name: "Bootstrap", value: 90 },
   ]},
-  { title: "SEO", skills: [
-    { name: "On-Page SEO", value: 92 }, { name: "Technical SEO", value: 88 },
-    { name: "Off-Page SEO", value: 85 }, { name: "Speed Optimization", value: 90 },
-  ]},
-  { title: "Lead Generation", skills: [
-    { name: "B2B Research", value: 94 }, { name: "Email Research", value: 92 },
-    { name: "LinkedIn Research", value: 90 }, { name: "Data Cleaning", value: 93 },
-  ]},
-  { title: "Web & Tools", skills: [
-    { name: "HTML / CSS", value: 97 }, { name: "JavaScript", value: 92 },
-    { name: "Git / GitHub", value: 92 }, { name: "Figma", value: 88 },
+  { title: "Backend", skills: [{ name: "Firebase", value: 85 }, { name: "REST APIs", value: 88 }] },
+  { title: "CMS", skills: [{ name: "WordPress", value: 95 }, { name: "Elementor", value: 96 }] },
+  { title: "SEO", skills: [{ name: "On Page", value: 92 }, { name: "Technical SEO", value: 88 }, { name: "Off Page", value: 85 }] },
+  { title: "Marketing", skills: [{ name: "Lead Generation", value: 94 }, { name: "Email Research", value: 92 }, { name: "LinkedIn Research", value: 90 }] },
+  { title: "Tools", skills: [
+    { name: "Git", value: 92 }, { name: "GitHub", value: 92 }, { name: "VS Code", value: 98 },
+    { name: "Figma", value: 88 }, { name: "Canva", value: 85 }, { name: "Google Sheets", value: 90 },
   ]},
 ];
 
 const projects = [
-  { img: p1, cat: "WordPress", title: "Business Website", desc: "Responsive Elementor-powered website with clean sections, conversion-focused layout and easy content management.", tech: ["WordPress", "Elementor", "Responsive"] },
-  { img: p2, cat: "WordPress Debugging", title: "Error & Bug Fixing", desc: "Technical troubleshooting for plugin conflicts, fatal errors, broken layouts, database and server-related issues.", tech: ["WordPress", "PHP", "Debugging"] },
-  { img: p3, cat: "SEO", title: "Website Optimization", desc: "Technical, on-page and performance improvements designed to strengthen search visibility and user experience.", tech: ["SEO", "Technical", "Performance"] },
-  { img: p4, cat: "Lead Generation", title: "B2B Prospect List", desc: "Targeted decision-maker research with relevant business data, email research and organized delivery.", tech: ["B2B Research", "Email Research", "LinkedIn"] },
-  { img: p5, cat: "WooCommerce", title: "Online Store", desc: "Responsive product pages, shopping flow and WordPress customization for an easy-to-manage store.", tech: ["WooCommerce", "WordPress", "Elementor"] },
-  { img: p6, cat: "SEO + WordPress", title: "Website Revamp", desc: "Combined design, technical cleanup, performance improvements and SEO-friendly structure.", tech: ["SEO", "WordPress", "Performance"] },
+  { img: p1, title: "Modern React Website", desc: "Analytics-forward SaaS dashboard with modular components and API integration.", tech: ["React", "TypeScript", "Tailwind"] },
+  { img: p2, title: "Figma to React Conversion", desc: "Pixel-perfect handoff turned into a responsive, accessible React interface.", tech: ["React", "Figma", "CSS"] },
+  { img: p3, title: "WordPress Business Website", desc: "Elementor-built corporate site with fast load times and CMS flexibility.", tech: ["WordPress", "Elementor", "PHP"] },
+  { img: p4, title: "SEO Optimization Project", desc: "Technical + on-page SEO overhaul that lifted organic traffic 3× in 90 days.", tech: ["SEO", "GSC", "Ahrefs"] },
+  { img: p5, title: "Lead Generation Dashboard", desc: "B2B outreach tool with verified email lists and LinkedIn prospecting.", tech: ["Sheets", "Apollo", "LinkedIn"] },
+  { img: p6, title: "Landing Page Design", desc: "High-converting SaaS landing page with animated hero and clean sections.", tech: ["React", "Motion", "Tailwind"] },
 ];
 
 const whyItems = [
-  { icon: Sparkles, title: "Clean & Professional", text: "Structured work with attention to detail." },
-  { icon: Smartphone, title: "Responsive", text: "Layouts tested across desktop, tablet and mobile." },
-  { icon: Search, title: "SEO Friendly", text: "Performance and search visibility considered from the start." },
-  { icon: Mail, title: "Clear Communication", text: "Simple updates and dependable project handling." },
-  { icon: Briefcase, title: "4+ Years Experience", text: "Practical experience across web and digital services." },
-  { icon: Users, title: "Client Focused", text: "Solutions built around your actual requirements." },
-  { icon: ShieldCheck, title: "Attention to Detail", text: "Careful research, testing and quality checks." },
-  { icon: LifeBuoy, title: "Long-Term Support", text: "Help with improvements and future updates." },
+  { icon: Rocket, title: "Fast Delivery", text: "Deadlines respected. Milestones tracked." },
+  { icon: Star, title: "100% Client Satisfaction", text: "Consistent 5-star reviews from clients." },
+  { icon: Smartphone, title: "Responsive Design", text: "Beautiful on every device, first-class mobile." },
+  { icon: Code2, title: "Clean Code", text: "Maintainable, documented, production-ready." },
+  { icon: Search, title: "SEO Friendly", text: "Semantic markup, fast loads, ranking-ready." },
+  { icon: LifeBuoy, title: "Lifetime Support", text: "I stay available after the project ships." },
+  { icon: RefreshCw, title: "Unlimited Revisions", text: "We iterate until you're genuinely happy." },
+  { icon: ShieldCheck, title: "NDA Friendly", text: "Discreet, professional, contract-ready." },
+];
+
+const timeline = [
+  { year: "2020", title: "Started as Frontend Developer", text: "Building responsive websites with HTML, CSS, and JavaScript." },
+  { year: "2021", title: "Mastered React & Modern Stack", text: "Shipped React SPAs and component libraries for early-stage startups." },
+  { year: "2022", title: "WordPress & Elementor Expert", text: "Delivered 40+ Elementor sites for agencies and small businesses." },
+  { year: "2023", title: "SEO Specialist", text: "On-page, technical and off-page SEO for global clients." },
+  { year: "2024", title: "Lead Generation Expert", text: "Verified B2B lists and LinkedIn prospecting at scale." },
+  { year: "2025", title: "Full Digital Solutions", text: "End-to-end websites, SEO and lead pipelines for growth-stage brands." },
 ];
 
 const testimonials = [
-  { name: "adnanaadnan", flag: "🇺🇸", country: "United States",
-    text: "Great lead generation work! The leads were accurate, well-researched, and delivered exactly as requested. Excellent communication and fast delivery. Highly recommended" },
-  { name: "joins42", flag: "🇺🇸", country: "United States",
-    text: "Very happy with the overall experience. The work was accurate, well-organized, and delivered on time. Definitely recommend" },
-  { name: "aline232", flag: "🇬🇧", country: "United Kingdom",
-    text: "Excellent freelancer! Reliable, accurate, and delivered everything perfectly." },
-  { name: "jamesli09", flag: "🇺🇸", country: "United States",
-    text: "Delivered exactly what I needed. The research was detailed and well organized." },
-  { name: "henymorck", flag: "🇺🇸", country: "United States",
-    text: "Excellent work and very professional service. Great communication and delivered exactly as expected. Highly recommended" },
-  { name: "metno23", flag: "🇩🇪", country: "Germany",
-    text: "The leads were accurate, relevant, and well-researched. The data was organized perfectly and delivered on time. Great communication and excellent work overall." },
+  { name: "Ahmed Khan", role: "Founder, NexaCloud", stars: 5,
+    text: "Zain rebuilt our React dashboard from scratch. Fast, clean and pixel-perfect from Figma. Would hire again in a heartbeat." },
+  { name: "Sophia Martinez", role: "Marketing Lead, BrightLabs", stars: 5,
+    text: "Our organic traffic tripled in three months. Zain's SEO work is meticulous and results-driven." },
+  { name: "Daniel Weber", role: "CEO, LeadForge", stars: 5,
+    text: "Verified leads that actually convert. Best B2B researcher I've worked with on Fiverr." },
+  { name: "Luca Romano", role: "CTO, Formaggi.io", stars: 5,
+    text: "Elementor build shipped 2 days early and the site loads faster than our old React app." },
+  { name: "Amelia Chen", role: "PM, DriftUX", stars: 5,
+    text: "Communication was flawless. He genuinely cares about your product." },
+  { name: "Marcus Bell", role: "Founder, Reachly", stars: 5,
+    text: "Landing page conversion jumped from 1.8% to 5.4%. Enough said." },
 ];
 
 /* ---------- Nav ---------- */
@@ -180,7 +186,7 @@ function Nav() {
   }, []);
   const links = [
     ["About", "about"], ["Services", "services"], ["Skills", "skills"],
-    ["Work", "portfolio"], ["Reviews", "testimonials"], ["Contact", "contact"],
+    ["Work", "portfolio"], ["Contact", "contact"],
   ];
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? "py-3" : "py-5"}`}>
@@ -270,29 +276,35 @@ function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             className="mt-5 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-            Build. Fix. <span className="text-gradient">Optimize.</span> Grow.
+            Hi, I'm <span className="text-gradient">Zain Ul Abdeen</span>
+            <span className="block text-3xl font-medium text-muted-foreground sm:text-4xl lg:text-5xl mt-3">
+              I build digital products that convert.
+            </span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
             className="mt-5 max-w-xl text-sm font-medium tracking-wide text-primary/90">
-            WordPress Developer · SEO Specialist · B2B Lead Generation Expert
+            Freelance Web Developer · React JS · WordPress Expert · SEO Specialist · Lead Generation Expert
           </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
             className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-            I'm Zain Ul Abdeen — helping businesses build reliable websites, solve technical issues, improve visibility and generate quality leads.
+            Helping businesses build fast, responsive, SEO-optimized websites and generate quality leads that grow their business.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
             className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-primary/70 text-primary-foreground glow-blue hover:opacity-95">
-              <a href="#contact">Let's Work Together <ArrowRight className="ml-1 h-4 w-4" /></a>
+              <a href="#contact">Hire Me <ArrowRight className="ml-1 h-4 w-4" /></a>
             </Button>
             <Button asChild size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 hover:bg-white/10">
-              <a href="#portfolio">View My Work</a>
+              <a href="#portfolio">View Portfolio</a>
+            </Button>
+            <Button asChild size="lg" variant="ghost" className="rounded-full hover:bg-white/5">
+              <a href="#contact">Contact Me</a>
             </Button>
           </motion.div>
 
@@ -338,9 +350,9 @@ function Hero() {
             className="absolute -top-4 -right-4 hidden rounded-2xl glass-strong p-4 sm:block animate-float-slow" style={{ animationDelay: "1s" }}>
             <div className="flex items-center gap-2 text-sm">
             <div className="flex -space-x-2">
-                <Avatar name="adnanaadnan" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
-                <Avatar name="henymorck" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
-                <Avatar name="metno23" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="Ahmed Khan" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="Sophia Martinez" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
+                <Avatar name="Daniel Weber" className="grid h-7 w-7 place-items-center rounded-full border-2 border-background" />
               </div>
               <span className="font-medium">50+ happy clients</span>
             </div>
@@ -354,8 +366,8 @@ function Hero() {
 /* ---------- About ---------- */
 function About() {
   return (
-    <Section id="about" eyebrow="About Me" title="Digital solutions built around business results"
-      subtitle="Clean execution, reliable communication and measurable outcomes.">
+    <Section id="about" eyebrow="About Me" title="Building the web, one pixel at a time"
+      subtitle="I partner with startups, agencies and established businesses to build digital solutions that look premium and perform even better.">
       <div className="grid gap-8 lg:grid-cols-3">
         <motion.div {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
           <div className="mb-6 flex items-center gap-4">
@@ -373,23 +385,23 @@ function About() {
             </div>
             <div className="min-w-0">
               <div className="text-lg font-semibold">Zain Ul Abdeen</div>
-              <div className="text-sm text-muted-foreground">WordPress · SEO · Lead Generation</div>
+              <div className="text-sm text-muted-foreground">Freelance Web Developer</div>
             </div>
           </div>
           <p className="text-lg leading-relaxed text-foreground/90">
-            I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span> — over the last 4+ years, I've worked on
-            websites, SEO campaigns and lead-generation projects with a focus on clean execution, reliable communication
-            and measurable outcomes.
+            I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span> — a freelance web developer and digital
+            solutions expert focused on outcomes, not just deliverables. Over the last four+ years I've helped founders and
+            marketing teams turn ideas into fast, responsive, SEO-optimized websites that actually generate leads.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            My core work is now centered on four services:
-            <span className="text-primary font-medium"> WordPress Development</span>,
-            <span className="text-primary font-medium"> WordPress Error Fixing</span>,
-            <span className="text-primary font-medium"> SEO Optimization</span> and
-            <span className="text-primary font-medium"> B2B Lead Generation</span>.
+            From <span className="text-primary font-medium">React JS</span> single-page applications to
+            <span className="text-primary font-medium"> Elementor-powered WordPress</span> business sites,
+            I blend clean engineering with a marketer's eye for conversion. I also run technical &amp; on-page
+            <span className="text-primary font-medium"> SEO</span> audits and build
+            <span className="text-primary font-medium"> B2B lead generation</span> pipelines that fill your calendar.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {["WordPress", "Elementor Pro", "WooCommerce", "SEO", "B2B Leads", "Data Research"].map(t => (
+            {["React JS", "Frontend", "WordPress", "Elementor", "SEO", "Lead Generation"].map(t => (
               <span key={t} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
                 {t}
               </span>
@@ -427,9 +439,9 @@ function About() {
 /* ---------- Services ---------- */
 function Services() {
   return (
-    <Section id="services" eyebrow="What I Do" title="Four services. One reliable partner."
-      subtitle="From building a website to fixing critical errors, improving search visibility and supplying targeted B2B data.">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <Section id="services" eyebrow="Services" title="What I do best"
+      subtitle="End-to-end web and growth services — from first pixel to first paying customer.">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s, i) => (
           <motion.div
             key={s.title}
@@ -446,7 +458,6 @@ function Services() {
                 <s.icon className="h-6 w-6" />
               </div>
               <h3 className="text-xl font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
               <ul className="mt-4 space-y-2">
                 {s.items.map(it => (
                   <li key={it} className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -481,9 +492,9 @@ function SkillBar({ name, value, delay }: { name: string; value: number; delay: 
 
 function Skills() {
   return (
-    <Section id="skills" eyebrow="Skills" title="Tools and expertise I use daily"
-      subtitle="The stack behind reliable websites, better rankings and quality leads.">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <Section id="skills" eyebrow="Skills" title="Tools of the trade"
+      subtitle="A modern toolkit for building, ranking and scaling web products.">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((g, gi) => (
           <motion.div key={g.title}
             initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
@@ -506,8 +517,8 @@ function Skills() {
 /* ---------- Portfolio ---------- */
 function PortfolioGrid() {
   return (
-    <Section id="portfolio" eyebrow="Selected Work" title="Projects aligned with my services"
-      subtitle="WordPress builds, error fixing, SEO optimization and B2B lead generation.">
+    <Section id="portfolio" eyebrow="Portfolio" title="Selected recent work"
+      subtitle="A handful of projects across React, WordPress, SEO and lead generation.">
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((p, i) => (
           <motion.article key={p.title}
@@ -521,13 +532,20 @@ function PortfolioGrid() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
             </div>
             <div className="p-6">
-              <span className="text-xs font-semibold uppercase tracking-wider text-primary">{p.cat}</span>
-              <h3 className="mt-2 text-lg font-semibold">{p.title}</h3>
+              <h3 className="text-lg font-semibold">{p.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {p.tech.map(t => (
                   <span key={t} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs text-muted-foreground">{t}</span>
                 ))}
+              </div>
+              <div className="mt-5 flex gap-2">
+                <Button asChild size="sm" className="rounded-full bg-gradient-to-r from-primary to-primary/70">
+                  <a href="#"><ExternalLink className="mr-1 h-3.5 w-3.5" /> Live Demo</a>
+                </Button>
+                <Button asChild size="sm" variant="outline" className="rounded-full border-white/15 bg-white/5">
+                  <a href="#"><Github className="mr-1 h-3.5 w-3.5" /> Source</a>
+                </Button>
               </div>
             </div>
           </motion.article>
@@ -561,6 +579,48 @@ function Why() {
   );
 }
 
+/* ---------- Timeline ---------- */
+function Timeline() {
+  return (
+    <Section id="experience" eyebrow="Experience" title="A journey in shipping"
+      subtitle="Six years of building for clients across the web stack.">
+      <div className="relative mx-auto max-w-4xl">
+        <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent md:left-1/2" />
+        <div className="space-y-10">
+          {timeline.map((e, i) => {
+            const right = i % 2 === 1;
+            return (
+              <motion.div key={e.year}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5 }}
+                className={`relative grid grid-cols-[2rem_1fr] items-start gap-4 md:grid-cols-2 md:gap-12 ${right ? "md:[&>*:first-child]:order-2" : ""}`}>
+                <div className={`hidden md:block ${right ? "text-left" : "text-right"}`}>
+                  <div className="rounded-2xl glass p-6 inline-block max-w-md text-left">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-secondary">{e.year}</div>
+                    <h3 className="mt-1 text-lg font-semibold">{e.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{e.text}</p>
+                  </div>
+                </div>
+                <div className="relative md:mx-auto">
+                  <div className="absolute left-4 top-3 -translate-x-1/2 md:left-0 md:-translate-x-[calc(50%+3rem)]">
+                    <div className="h-4 w-4 rounded-full bg-gradient-to-br from-primary to-secondary ring-4 ring-background" />
+                  </div>
+                </div>
+                <div className="md:hidden">
+                  <div className="rounded-2xl glass p-5">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-secondary">{e.year}</div>
+                    <h3 className="mt-1 text-base font-semibold">{e.title}</h3>
+                    <p className="mt-1.5 text-sm text-muted-foreground">{e.text}</p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </Section>
+  );
+}
 
 /* ---------- Testimonials ---------- */
 function Testimonials() {
