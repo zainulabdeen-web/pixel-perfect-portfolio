@@ -1,16 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform, animate } from "framer-motion";
 import {
-  Code2, Layout, Figma, Globe, Search, Users, Zap, ShieldCheck,
-  Smartphone, Sparkles, RefreshCw, LifeBuoy, Github, Linkedin, Mail,
-  ExternalLink, ArrowRight, Star, Briefcase, Send, MapPin, Menu, X,
-  Rocket, Terminal, Palette, Database, GitBranch, Chrome,
+  Code2, Globe, Search, Users, Zap, ShieldCheck,
+  Smartphone, Sparkles, LifeBuoy, Github, Linkedin, Mail,
+  ArrowRight, Star, Briefcase, MapPin, Menu, X,
+  Terminal, Palette, Database, GitBranch, Chrome,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
-import { toast } from "sonner";
 
 import profileAsset from "@/assets/zain-profile.jpg.asset.json";
 const profile = profileAsset.url;
@@ -21,7 +18,7 @@ import p4 from "@/assets/project-4.jpg";
 import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
 
-const CONTACT_EMAIL = "zaingill0770@gmail.com";
+const CONTACT_EMAIL = "zaingill77665@gmail.com";
 /* ---------- social links ---------- */
 const LINKEDIN_URL = "https://www.linkedin.com/in/zain-ul-abdeen-0853b539b";
 const FIVERR_URL = "https://www.fiverr.com/s/R7L34w8";
@@ -90,7 +87,7 @@ function Section({
   );
 }
 
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
+function Counter({ to, suffix = "", decimals = 0 }: { to: number; suffix?: string; decimals?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const [val, setVal] = useState(0);
@@ -98,80 +95,77 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
     if (!inView) return;
     const controls = animate(0, to, {
       duration: 2, ease: "easeOut",
-      onUpdate: (v) => setVal(Math.floor(v)),
+      onUpdate: (v) => setVal(v),
     });
     return () => controls.stop();
   }, [inView, to]);
-  return <span ref={ref}>{val}{suffix}</span>;
+  return <span ref={ref}>{val.toFixed(decimals)}{suffix}</span>;
 }
 
 /* ---------- data ---------- */
 const services = [
-  { icon: Code2, title: "React JS Development", items: ["Responsive Websites", "Single Page Applications", "React Components", "API Integration"] },
-  { icon: Layout, title: "Frontend Development", items: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Bootstrap"] },
-  { icon: Figma, title: "Figma to React", items: ["Pixel Perfect Conversion", "Responsive UI", "Clean Code"] },
-  { icon: Globe, title: "WordPress Development", items: ["Elementor Websites", "Business Websites", "Landing Pages", "WooCommerce"] },
-  { icon: Search, title: "SEO Optimization", items: ["On Page SEO", "Technical SEO", "Off Page SEO", "Speed Optimization"] },
-  { icon: Users, title: "B2B Lead Generation", items: ["Verified Email Lists", "LinkedIn Leads", "Decision Makers", "Data Research"] },
+  { icon: Globe, title: "WordPress Development", desc: "Professional, responsive WordPress websites designed around your brand and goals.",
+    items: ["Elementor Pro websites", "Business & corporate sites", "Landing pages", "WooCommerce stores"] },
+  { icon: LifeBuoy, title: "WordPress Error Fixing", desc: "Diagnose and resolve WordPress bugs, conflicts, crashes and technical issues.",
+    items: ["Critical & fatal errors", "500 / 404 / database errors", "Plugin & theme conflicts", "PHP, server & memory issues"] },
+  { icon: Search, title: "SEO Optimization", desc: "Technical and on-page improvements that make websites easier to crawl, understand and rank.",
+    items: ["Technical SEO audits", "On-page optimization", "Off-page SEO", "Speed & performance"] },
+  { icon: Users, title: "B2B Lead Generation", desc: "Targeted prospect research and verified business data for focused outreach.",
+    items: ["Decision-maker research", "Verified email research", "LinkedIn lead research", "Data cleaning & organization"] },
 ];
 
 const skillGroups = [
-  { title: "Frontend", skills: [
-    { name: "HTML", value: 98 }, { name: "CSS", value: 96 }, { name: "JavaScript", value: 92 },
-    { name: "React JS", value: 94 }, { name: "Next JS", value: 85 }, { name: "Tailwind CSS", value: 96 }, { name: "Bootstrap", value: 90 },
+  { title: "WordPress", skills: [
+    { name: "WordPress", value: 95 }, { name: "Elementor Pro", value: 96 },
+    { name: "WooCommerce", value: 91 }, { name: "Bug Fixing", value: 94 },
   ]},
-  { title: "Backend", skills: [{ name: "Firebase", value: 85 }, { name: "REST APIs", value: 88 }] },
-  { title: "CMS", skills: [{ name: "WordPress", value: 95 }, { name: "Elementor", value: 96 }] },
-  { title: "SEO", skills: [{ name: "On Page", value: 92 }, { name: "Technical SEO", value: 88 }, { name: "Off Page", value: 85 }] },
-  { title: "Marketing", skills: [{ name: "Lead Generation", value: 94 }, { name: "Email Research", value: 92 }, { name: "LinkedIn Research", value: 90 }] },
-  { title: "Tools", skills: [
-    { name: "Git", value: 92 }, { name: "GitHub", value: 92 }, { name: "VS Code", value: 98 },
-    { name: "Figma", value: 88 }, { name: "Canva", value: 85 }, { name: "Google Sheets", value: 90 },
+  { title: "SEO", skills: [
+    { name: "On-Page SEO", value: 92 }, { name: "Technical SEO", value: 88 },
+    { name: "Off-Page SEO", value: 85 }, { name: "Speed Optimization", value: 90 },
+  ]},
+  { title: "Lead Generation", skills: [
+    { name: "B2B Research", value: 94 }, { name: "Email Research", value: 92 },
+    { name: "LinkedIn Research", value: 90 }, { name: "Data Cleaning", value: 93 },
+  ]},
+  { title: "Web & Tools", skills: [
+    { name: "HTML / CSS", value: 97 }, { name: "JavaScript", value: 92 },
+    { name: "Git / GitHub", value: 92 }, { name: "Figma", value: 88 },
   ]},
 ];
 
 const projects = [
-  { img: p1, title: "Modern React Website", desc: "Analytics-forward SaaS dashboard with modular components and API integration.", tech: ["React", "TypeScript", "Tailwind"] },
-  { img: p2, title: "Figma to React Conversion", desc: "Pixel-perfect handoff turned into a responsive, accessible React interface.", tech: ["React", "Figma", "CSS"] },
-  { img: p3, title: "WordPress Business Website", desc: "Elementor-built corporate site with fast load times and CMS flexibility.", tech: ["WordPress", "Elementor", "PHP"] },
-  { img: p4, title: "SEO Optimization Project", desc: "Technical + on-page SEO overhaul that lifted organic traffic 3× in 90 days.", tech: ["SEO", "GSC", "Ahrefs"] },
-  { img: p5, title: "Lead Generation Dashboard", desc: "B2B outreach tool with verified email lists and LinkedIn prospecting.", tech: ["Sheets", "Apollo", "LinkedIn"] },
-  { img: p6, title: "Landing Page Design", desc: "High-converting SaaS landing page with animated hero and clean sections.", tech: ["React", "Motion", "Tailwind"] },
+  { img: p1, cat: "WordPress", title: "Business Website", desc: "Responsive Elementor-powered website with clean sections, conversion-focused layout and easy content management.", tech: ["WordPress", "Elementor", "Responsive"] },
+  { img: p2, cat: "WordPress Debugging", title: "Error & Bug Fixing", desc: "Technical troubleshooting for plugin conflicts, fatal errors, broken layouts, database and server-related issues.", tech: ["WordPress", "PHP", "Debugging"] },
+  { img: p3, cat: "SEO", title: "Website Optimization", desc: "Technical, on-page and performance improvements designed to strengthen search visibility and user experience.", tech: ["SEO", "Technical", "Performance"] },
+  { img: p4, cat: "Lead Generation", title: "B2B Prospect List", desc: "Targeted decision-maker research with relevant business data, email research and organized delivery.", tech: ["B2B Research", "Email Research", "LinkedIn"] },
+  { img: p5, cat: "WooCommerce", title: "Online Store", desc: "Responsive product pages, shopping flow and WordPress customization for an easy-to-manage store.", tech: ["WooCommerce", "WordPress", "Elementor"] },
+  { img: p6, cat: "SEO + WordPress", title: "Website Revamp", desc: "Combined design, technical cleanup, performance improvements and SEO-friendly structure.", tech: ["SEO", "WordPress", "Performance"] },
 ];
 
 const whyItems = [
-  { icon: Rocket, title: "Fast Delivery", text: "Deadlines respected. Milestones tracked." },
-  { icon: Star, title: "100% Client Satisfaction", text: "Consistent 5-star reviews from clients." },
-  { icon: Smartphone, title: "Responsive Design", text: "Beautiful on every device, first-class mobile." },
-  { icon: Code2, title: "Clean Code", text: "Maintainable, documented, production-ready." },
-  { icon: Search, title: "SEO Friendly", text: "Semantic markup, fast loads, ranking-ready." },
-  { icon: LifeBuoy, title: "Lifetime Support", text: "I stay available after the project ships." },
-  { icon: RefreshCw, title: "Unlimited Revisions", text: "We iterate until you're genuinely happy." },
-  { icon: ShieldCheck, title: "NDA Friendly", text: "Discreet, professional, contract-ready." },
-];
-
-const timeline = [
-  { year: "2020", title: "Started as Frontend Developer", text: "Building responsive websites with HTML, CSS, and JavaScript." },
-  { year: "2021", title: "Mastered React & Modern Stack", text: "Shipped React SPAs and component libraries for early-stage startups." },
-  { year: "2022", title: "WordPress & Elementor Expert", text: "Delivered 40+ Elementor sites for agencies and small businesses." },
-  { year: "2023", title: "SEO Specialist", text: "On-page, technical and off-page SEO for global clients." },
-  { year: "2024", title: "Lead Generation Expert", text: "Verified B2B lists and LinkedIn prospecting at scale." },
-  { year: "2025", title: "Full Digital Solutions", text: "End-to-end websites, SEO and lead pipelines for growth-stage brands." },
+  { icon: Sparkles, title: "Clean & Professional", text: "Structured work with attention to detail." },
+  { icon: Smartphone, title: "Responsive", text: "Layouts tested across desktop, tablet and mobile." },
+  { icon: Search, title: "SEO Friendly", text: "Performance and search visibility considered from the start." },
+  { icon: Mail, title: "Clear Communication", text: "Simple updates and dependable project handling." },
+  { icon: Briefcase, title: "4+ Years Experience", text: "Practical experience across web and digital services." },
+  { icon: Users, title: "Client Focused", text: "Solutions built around your actual requirements." },
+  { icon: ShieldCheck, title: "Attention to Detail", text: "Careful research, testing and quality checks." },
+  { icon: LifeBuoy, title: "Long-Term Support", text: "Help with improvements and future updates." },
 ];
 
 const testimonials = [
-  { name: "Ahmed Khan", role: "Founder, NexaCloud", stars: 5,
-    text: "Zain rebuilt our React dashboard from scratch. Fast, clean and pixel-perfect from Figma. Would hire again in a heartbeat." },
-  { name: "Sophia Martinez", role: "Marketing Lead, BrightLabs", stars: 5,
-    text: "Our organic traffic tripled in three months. Zain's SEO work is meticulous and results-driven." },
-  { name: "Daniel Weber", role: "CEO, LeadForge", stars: 5,
-    text: "Verified leads that actually convert. Best B2B researcher I've worked with on Fiverr." },
-  { name: "Luca Romano", role: "CTO, Formaggi.io", stars: 5,
-    text: "Elementor build shipped 2 days early and the site loads faster than our old React app." },
-  { name: "Amelia Chen", role: "PM, DriftUX", stars: 5,
-    text: "Communication was flawless. He genuinely cares about your product." },
-  { name: "Marcus Bell", role: "Founder, Reachly", stars: 5,
-    text: "Landing page conversion jumped from 1.8% to 5.4%. Enough said." },
+  { name: "adnanaadnan", flag: "🇺🇸", country: "United States",
+    text: "Great lead generation work! The leads were accurate, well-researched, and delivered exactly as requested. Excellent communication and fast delivery. Highly recommended" },
+  { name: "joins42", flag: "🇺🇸", country: "United States",
+    text: "Very happy with the overall experience. The work was accurate, well-organized, and delivered on time. Definitely recommend" },
+  { name: "aline232", flag: "🇬🇧", country: "United Kingdom",
+    text: "Excellent freelancer! Reliable, accurate, and delivered everything perfectly." },
+  { name: "jamesli09", flag: "🇺🇸", country: "United States",
+    text: "Delivered exactly what I needed. The research was detailed and well organized." },
+  { name: "henymorck", flag: "🇺🇸", country: "United States",
+    text: "Excellent work and very professional service. Great communication and delivered exactly as expected. Highly recommended" },
+  { name: "metno23", flag: "🇩🇪", country: "Germany",
+    text: "The leads were accurate, relevant, and well-researched. The data was organized perfectly and delivered on time. Great communication and excellent work overall." },
 ];
 
 /* ---------- Nav ---------- */
