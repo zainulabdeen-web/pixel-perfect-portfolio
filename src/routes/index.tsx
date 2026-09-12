@@ -5,21 +5,23 @@ import { Toaster } from "@/components/ui/sonner";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Zain Ul Abdeen — Freelance Web Developer & Digital Solutions Expert" },
+      { title: "Zain Ul Abdeen | WordPress & WooCommerce Developer" },
       {
         name: "description",
         content:
-          "Freelance Web Developer specializing in React JS, WordPress, SEO, and B2B lead generation. Building fast, responsive websites that convert.",
+          "Zain Ul Abdeen is a WordPress & WooCommerce Developer and Full Stack Web Developer specializing in WordPress development, Elementor, bug fixing, SEO, and website performance.",
       },
-      { property: "og:title", content: "Zain Ul Abdeen — Freelance Web Developer & Digital Solutions Expert" },
+      { property: "og:title", content: "Zain Ul Abdeen | WordPress & WooCommerce Developer" },
       {
         property: "og:description",
         content:
-          "React JS · WordPress Expert · SEO Specialist · Lead Generation Expert. Helping businesses build websites that generate quality leads.",
+          "Zain Ul Abdeen is a WordPress & WooCommerce Developer and Full Stack Web Developer specializing in WordPress development, Elementor, bug fixing, SEO, and website performance.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "/" }],
   }),
   component: Index,
 });

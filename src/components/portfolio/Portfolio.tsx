@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform, animate } from "framer-motion";
 import {
-  Code2, Layout, Figma, Globe, Search, Users, Zap, ShieldCheck,
+  Code2, Layout, Globe, Search, Zap, ShieldCheck, Gauge, Wrench,
   Smartphone, Sparkles, RefreshCw, LifeBuoy, Github, Linkedin, Mail,
   ExternalLink, ArrowRight, Star, Briefcase, Send, MapPin, Menu, X,
-  Rocket, Terminal, Palette, Database, GitBranch, Chrome,
+  Terminal, Palette, Database, GitBranch, Chrome,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,7 +21,8 @@ import p4 from "@/assets/project-4.jpg";
 import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
 
-const CONTACT_EMAIL = "zaingill0770@gmail.com";
+const CONTACT_EMAIL = "zaingill77665@gmail.com";
+const PROFESSIONAL_TITLE = "WordPress & WooCommerce Developer";
 /* ---------- social links ---------- */
 const LINKEDIN_URL = "https://www.linkedin.com/in/zain-ul-abdeen-0853b539b";
 const FIVERR_URL = "https://www.fiverr.com/s/R7L34w8";
@@ -36,8 +37,8 @@ function FiverrIcon({ className }: { className?: string }) {
 }
 
 /* ---------- initials avatar ---------- */
-function Avatar({ name, className }: { name: string; className?: string }) {
-  const initials = name.split(" ").map(n => n[0]).slice(0, 2).join("").toUpperCase();
+function Avatar({ name, initials, className }: { name: string; initials?: string; className?: string }) {
+  const avatarInitials = initials ?? name.split(" ").map(n => n[0]).slice(0, 2).join("").toUpperCase();
   // deterministic hue from name
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
@@ -50,7 +51,7 @@ function Avatar({ name, className }: { name: string; className?: string }) {
       }}
       aria-label={name}
     >
-      <span className="text-sm font-semibold text-white">{initials}</span>
+      <span className="text-sm font-semibold text-white">{avatarInitials}</span>
     </div>
   );
 }
@@ -107,71 +108,52 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 
 /* ---------- data ---------- */
 const services = [
-  { icon: Code2, title: "React JS Development", items: ["Responsive Websites", "Single Page Applications", "React Components", "API Integration"] },
-  { icon: Layout, title: "Frontend Development", items: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Bootstrap"] },
-  { icon: Figma, title: "Figma to React", items: ["Pixel Perfect Conversion", "Responsive UI", "Clean Code"] },
-  { icon: Globe, title: "WordPress Development", items: ["Elementor Websites", "Business Websites", "Landing Pages", "WooCommerce"] },
-  { icon: Search, title: "SEO Optimization", items: ["On Page SEO", "Technical SEO", "Off Page SEO", "Speed Optimization"] },
-  { icon: Users, title: "B2B Lead Generation", items: ["Verified Email Lists", "LinkedIn Leads", "Decision Makers", "Data Research"] },
+  { icon: Globe, title: "WordPress Development", description: "Professional WordPress websites, business websites, landing pages, redesigns, customizations, and ongoing maintenance." },
+  { icon: Layout, title: "WooCommerce Development", description: "Professional online stores, product pages, checkout customization, payment integrations, and WooCommerce improvements." },
+  { icon: Wrench, title: "WordPress Bug Fixing & Troubleshooting", description: "Fix WordPress errors, plugin conflicts, broken layouts, critical errors, 404/500 errors, database issues, login problems, and theme issues." },
+  { icon: Code2, title: "Elementor Development", description: "Responsive Elementor websites, custom sections, page customization, redesigns, and professional landing pages." },
+  { icon: Search, title: "SEO & Website Optimization", description: "On-page SEO, technical SEO, website structure improvements, SEO-friendly implementation, and website optimization." },
+  { icon: Gauge, title: "Website Speed & Performance", description: "Speed optimization, Core Web Vitals improvements, performance troubleshooting, image and asset optimization, and practical website speed improvements." },
 ];
 
 const skillGroups = [
-  { title: "Frontend", skills: [
-    { name: "HTML", value: 98 }, { name: "CSS", value: 96 }, { name: "JavaScript", value: 92 },
-    { name: "React JS", value: 94 }, { name: "Next JS", value: 85 }, { name: "Tailwind CSS", value: 96 }, { name: "Bootstrap", value: 90 },
-  ]},
-  { title: "Backend", skills: [{ name: "Firebase", value: 85 }, { name: "REST APIs", value: 88 }] },
-  { title: "CMS", skills: [{ name: "WordPress", value: 95 }, { name: "Elementor", value: 96 }] },
-  { title: "SEO", skills: [{ name: "On Page", value: 92 }, { name: "Technical SEO", value: 88 }, { name: "Off Page", value: 85 }] },
-  { title: "Marketing", skills: [{ name: "Lead Generation", value: 94 }, { name: "Email Research", value: 92 }, { name: "LinkedIn Research", value: 90 }] },
-  { title: "Tools", skills: [
-    { name: "Git", value: 92 }, { name: "GitHub", value: 92 }, { name: "VS Code", value: 98 },
-    { name: "Figma", value: 88 }, { name: "Canva", value: 85 }, { name: "Google Sheets", value: 90 },
-  ]},
+  { title: "WordPress", skills: [{ name: "WordPress", value: 95 }, { name: "WooCommerce", value: 92 }, { name: "Elementor", value: 96 }] },
+  { title: "Development", skills: [{ name: "PHP", value: 88 }, { name: "HTML", value: 98 }, { name: "CSS", value: 96 }, { name: "JavaScript", value: 92 }] },
+  { title: "SEO & Optimization", skills: [{ name: "On-Page SEO", value: 92 }, { name: "Technical SEO", value: 88 }, { name: "Website Performance", value: 92 }] },
+  { title: "Tools", skills: [{ name: "Git", value: 92 }, { name: "GitHub", value: 92 }, { name: "VS Code", value: 98 }, { name: "Figma", value: 88 }] },
 ];
 
 const projects = [
-  { img: p1, title: "Modern React Website", desc: "Analytics-forward SaaS dashboard with modular components and API integration.", tech: ["React", "TypeScript", "Tailwind"] },
-  { img: p2, title: "Figma to React Conversion", desc: "Pixel-perfect handoff turned into a responsive, accessible React interface.", tech: ["React", "Figma", "CSS"] },
-  { img: p3, title: "WordPress Business Website", desc: "Elementor-built corporate site with fast load times and CMS flexibility.", tech: ["WordPress", "Elementor", "PHP"] },
-  { img: p4, title: "SEO Optimization Project", desc: "Technical + on-page SEO overhaul that lifted organic traffic 3× in 90 days.", tech: ["SEO", "GSC", "Ahrefs"] },
-  { img: p5, title: "Lead Generation Dashboard", desc: "B2B outreach tool with verified email lists and LinkedIn prospecting.", tech: ["Sheets", "Apollo", "LinkedIn"] },
-  { img: p6, title: "Landing Page Design", desc: "High-converting SaaS landing page with animated hero and clean sections.", tech: ["React", "Motion", "Tailwind"] },
+  { img: p1, title: "WordPress Business Website", desc: "Professional WordPress business website built with a responsive layout, Elementor customization, and a clean user experience.", tech: ["WordPress", "Elementor", "PHP"] },
+  { img: p2, title: "WooCommerce Online Store", desc: "Modern WooCommerce store with product customization, responsive design, and an optimized shopping experience.", tech: ["WooCommerce", "WordPress", "Elementor"] },
+  { img: p3, title: "WordPress Bug Fixing & Troubleshooting", desc: "Technical WordPress troubleshooting covering plugin conflicts, broken layouts, errors, and website functionality issues.", tech: ["WordPress", "PHP", "Troubleshooting"] },
+  { img: p4, title: "SEO & Website Optimization", desc: "Technical and on-page optimization focused on website structure, performance, usability, and search-friendly implementation.", tech: ["SEO", "WordPress", "Performance"] },
+  { img: p5, title: "Elementor Landing Page", desc: "Responsive and conversion-focused landing page designed and developed using Elementor.", tech: ["Elementor", "WordPress", "CSS"] },
+  { img: p6, title: "WordPress Website Speed Optimization", desc: "Performance improvements focused on loading speed, Core Web Vitals, asset optimization, and overall website performance.", tech: ["WordPress", "Performance", "SEO"] },
 ];
 
 const whyItems = [
-  { icon: Rocket, title: "Fast Delivery", text: "Deadlines respected. Milestones tracked." },
-  { icon: Star, title: "100% Client Satisfaction", text: "Consistent 5-star reviews from clients." },
-  { icon: Smartphone, title: "Responsive Design", text: "Beautiful on every device, first-class mobile." },
-  { icon: Code2, title: "Clean Code", text: "Maintainable, documented, production-ready." },
-  { icon: Search, title: "SEO Friendly", text: "Semantic markup, fast loads, ranking-ready." },
-  { icon: LifeBuoy, title: "Lifetime Support", text: "I stay available after the project ships." },
-  { icon: RefreshCw, title: "Unlimited Revisions", text: "We iterate until you're genuinely happy." },
-  { icon: ShieldCheck, title: "NDA Friendly", text: "Discreet, professional, contract-ready." },
+  { icon: Code2, title: "Clean Development", text: "Maintainable, organized, and practical solutions built around your requirements." },
+  { icon: Smartphone, title: "Responsive Design", text: "Professional websites that work smoothly across desktop, tablet, and mobile devices." },
+  { icon: Wrench, title: "Problem Solving", text: "I focus on finding the actual cause of technical issues instead of temporary fixes." },
+  { icon: Gauge, title: "Performance Focused", text: "I build and optimize websites with usability, speed, and performance in mind." },
+  { icon: Search, title: "SEO Friendly", text: "Clean structure and SEO-friendly implementation to support better search visibility." },
+  { icon: LifeBuoy, title: "Client Focused", text: "Clear communication, attention to detail, and reliable support throughout the project." },
 ];
 
 const timeline = [
-  { year: "2020", title: "Started as Frontend Developer", text: "Building responsive websites with HTML, CSS, and JavaScript." },
-  { year: "2021", title: "Mastered React & Modern Stack", text: "Shipped React SPAs and component libraries for early-stage startups." },
-  { year: "2022", title: "WordPress & Elementor Expert", text: "Delivered 40+ Elementor sites for agencies and small businesses." },
-  { year: "2023", title: "SEO Specialist", text: "On-page, technical and off-page SEO for global clients." },
-  { year: "2024", title: "Lead Generation Expert", text: "Verified B2B lists and LinkedIn prospecting at scale." },
-  { year: "2025", title: "Full Digital Solutions", text: "End-to-end websites, SEO and lead pipelines for growth-stage brands." },
+  { year: "2022 — Present", title: "Senior WordPress Developer", text: "Developing, customizing, troubleshooting, and optimizing WordPress and WooCommerce websites. I work with Elementor, PHP, HTML, CSS, and JavaScript to build responsive websites, solve complex WordPress issues, improve performance, and implement custom functionality." },
+  { year: "2021 — Present", title: "Full Stack Web Developer", text: "Building responsive web interfaces and custom functionality using modern front-end and back-end technologies, with a strong focus on usability, performance, and maintainable development." },
+  { year: "2020 — Present", title: "Freelance Web Developer", text: "Working with businesses and clients on WordPress development, WooCommerce stores, website redesigns, bug fixing, SEO optimization, performance improvements, and ongoing website support." },
 ];
 
 const testimonials = [
-  { name: "Ahmed Khan", role: "Founder, NexaCloud", stars: 5,
-    text: "Zain rebuilt our React dashboard from scratch. Fast, clean and pixel-perfect from Figma. Would hire again in a heartbeat." },
-  { name: "Sophia Martinez", role: "Marketing Lead, BrightLabs", stars: 5,
-    text: "Our organic traffic tripled in three months. Zain's SEO work is meticulous and results-driven." },
-  { name: "Daniel Weber", role: "CEO, LeadForge", stars: 5,
-    text: "Verified leads that actually convert. Best B2B researcher I've worked with on Fiverr." },
-  { name: "Luca Romano", role: "CTO, Formaggi.io", stars: 5,
-    text: "Elementor build shipped 2 days early and the site loads faster than our old React app." },
-  { name: "Amelia Chen", role: "PM, DriftUX", stars: 5,
-    text: "Communication was flawless. He genuinely cares about your product." },
-  { name: "Marcus Bell", role: "Founder, Reachly", stars: 5,
-    text: "Landing page conversion jumped from 1.8% to 5.4%. Enough said." },
+  { name: "Client Name 1", role: "Client", initials: "C1", review: "Client review goes here.", rating: 5 },
+  { name: "Client Name 2", role: "Client", initials: "C2", review: "Client review goes here.", rating: 5 },
+  { name: "Client Name 3", role: "Client", initials: "C3", review: "Client review goes here.", rating: 5 },
+  { name: "Client Name 4", role: "Client", initials: "C4", review: "Client review goes here.", rating: 5 },
+  { name: "Client Name 5", role: "Client", initials: "C5", review: "Client review goes here.", rating: 5 },
+  { name: "Client Name 6", role: "Client", initials: "C6", review: "Client review goes here.", rating: 5 },
 ];
 
 /* ---------- Nav ---------- */
@@ -186,7 +168,7 @@ function Nav() {
   }, []);
   const links = [
     ["About", "about"], ["Services", "services"], ["Skills", "skills"],
-    ["Work", "portfolio"], ["Contact", "contact"],
+    ["Portfolio", "portfolio"], ["Experience", "experience"], ["Reviews", "testimonials"], ["Contact", "contact"],
   ];
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? "py-3" : "py-5"}`}>
@@ -278,20 +260,21 @@ function Hero() {
             className="mt-5 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
             Hi, I'm <span className="text-gradient">Zain Ul Abdeen</span>
             <span className="block text-3xl font-medium text-muted-foreground sm:text-4xl lg:text-5xl mt-3">
-              I build digital products that convert.
+               WordPress &amp; WooCommerce Developer
+               <span className="block">| Full Stack Web Developer</span>
             </span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
             className="mt-5 max-w-xl text-sm font-medium tracking-wide text-primary/90">
-            Freelance Web Developer · React JS · WordPress Expert · SEO Specialist · Lead Generation Expert
+            WordPress Developer · WooCommerce Developer · Elementor Developer · SEO &amp; Performance Specialist
           </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
             className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Helping businesses build fast, responsive, SEO-optimized websites and generate quality leads that grow their business.
+            I build, fix, customize, and optimize professional WordPress websites and WooCommerce stores that are responsive, SEO-friendly, fast, secure, and easy to manage.
           </motion.p>
 
           <motion.div
@@ -323,7 +306,7 @@ function Hero() {
           <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-full border-4 border-white/10 glass-strong ring-4 ring-primary/20">
             <img
               src={profile}
-              alt="Zain Ul Abdeen — Freelance Web Developer"
+               alt="Zain Ul Abdeen — WordPress and WooCommerce Developer"
               width={800}
               height={800}
               loading="eager"
@@ -366,8 +349,7 @@ function Hero() {
 /* ---------- About ---------- */
 function About() {
   return (
-    <Section id="about" eyebrow="About Me" title="Building the web, one pixel at a time"
-      subtitle="I partner with startups, agencies and established businesses to build digital solutions that look premium and perform even better.">
+    <Section id="about" eyebrow="About Me" title="Building websites that work as good as they look.">
       <div className="grid gap-8 lg:grid-cols-3">
         <motion.div {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
           <div className="mb-6 flex items-center gap-4">
@@ -385,23 +367,17 @@ function About() {
             </div>
             <div className="min-w-0">
               <div className="text-lg font-semibold">Zain Ul Abdeen</div>
-              <div className="text-sm text-muted-foreground">Freelance Web Developer</div>
+               <div className="text-sm text-muted-foreground">{PROFESSIONAL_TITLE}</div>
             </div>
           </div>
           <p className="text-lg leading-relaxed text-foreground/90">
-            I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span> — a freelance web developer and digital
-            solutions expert focused on outcomes, not just deliverables. Over the last four+ years I've helped founders and
-            marketing teams turn ideas into fast, responsive, SEO-optimized websites that actually generate leads.
+            I'm <span className="font-semibold text-foreground">Zain Ul Abdeen</span>, a WordPress &amp; Full Stack Web Developer with 4+ years of experience building, fixing, customizing, and optimizing websites for businesses and online stores.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            From <span className="text-primary font-medium">React JS</span> single-page applications to
-            <span className="text-primary font-medium"> Elementor-powered WordPress</span> business sites,
-            I blend clean engineering with a marketer's eye for conversion. I also run technical &amp; on-page
-            <span className="text-primary font-medium"> SEO</span> audits and build
-            <span className="text-primary font-medium"> B2B lead generation</span> pipelines that fill your calendar.
+            I specialize in WordPress, WooCommerce, Elementor, website troubleshooting, SEO, and performance optimization. I focus on clean development, responsive experiences, clear communication, and reliable solutions that help businesses maintain a strong online presence.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {["React JS", "Frontend", "WordPress", "Elementor", "SEO", "Lead Generation"].map(t => (
+            {["WordPress", "WooCommerce", "Elementor", "Bug Fixing", "SEO", "Performance"].map(t => (
               <span key={t} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted-foreground">
                 {t}
               </span>
@@ -411,7 +387,7 @@ function About() {
 
         <motion.div {...fadeUp} transition={{ delay: 0.15, duration: 0.6 }} className="grid grid-cols-2 gap-4">
           {[
-            { label: "Years", value: "4+" },
+            { label: "Years Experience", value: "4+" },
             { label: "Projects", value: "100+" },
             { label: "Clients", value: "50+" },
             { label: "Countries", value: "20+" },
@@ -440,7 +416,7 @@ function About() {
 function Services() {
   return (
     <Section id="services" eyebrow="Services" title="What I do best"
-      subtitle="End-to-end web and growth services — from first pixel to first paying customer.">
+      subtitle="Specialized WordPress services for reliable, fast, and search-friendly websites.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s, i) => (
           <motion.div
@@ -458,13 +434,7 @@ function Services() {
                 <s.icon className="h-6 w-6" />
               </div>
               <h3 className="text-xl font-semibold">{s.title}</h3>
-              <ul className="mt-4 space-y-2">
-                {s.items.map(it => (
-                  <li key={it} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" /> {it}
-                  </li>
-                ))}
-              </ul>
+               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
             </div>
           </motion.div>
         ))}
@@ -493,8 +463,8 @@ function SkillBar({ name, value, delay }: { name: string; value: number; delay: 
 function Skills() {
   return (
     <Section id="skills" eyebrow="Skills" title="Tools of the trade"
-      subtitle="A modern toolkit for building, ranking and scaling web products.">
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      subtitle="A focused toolkit for building, optimizing, and maintaining professional websites.">
+      <div className="grid gap-6 md:grid-cols-2">
         {skillGroups.map((g, gi) => (
           <motion.div key={g.title}
             initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
@@ -518,7 +488,7 @@ function Skills() {
 function PortfolioGrid() {
   return (
     <Section id="portfolio" eyebrow="Portfolio" title="Selected recent work"
-      subtitle="A handful of projects across React, WordPress, SEO and lead generation.">
+      subtitle="A selection of WordPress, WooCommerce, Elementor, SEO, and performance projects.">
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((p, i) => (
           <motion.article key={p.title}
@@ -559,8 +529,8 @@ function PortfolioGrid() {
 function Why() {
   return (
     <Section id="why" eyebrow="Why Choose Me" title="Freelance without the compromises"
-      subtitle="Agency-level quality with a direct line to the person actually building it.">
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+       subtitle="Practical development, clear communication, and reliable solutions from start to finish.">
+       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {whyItems.map((w, i) => (
           <motion.div key={w.title}
             initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
@@ -582,15 +552,15 @@ function Why() {
 /* ---------- Timeline ---------- */
 function Timeline() {
   return (
-    <Section id="experience" eyebrow="Experience" title="A journey in shipping"
-      subtitle="Six years of building for clients across the web stack.">
+    <Section id="experience" eyebrow="Experience" title="Professional experience"
+      subtitle="Focused experience across WordPress, WooCommerce, and full-stack web development.">
       <div className="relative mx-auto max-w-4xl">
         <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent md:left-1/2" />
         <div className="space-y-10">
           {timeline.map((e, i) => {
             const right = i % 2 === 1;
             return (
-              <motion.div key={e.year}
+               <motion.div key={e.title}
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5 }}
                 className={`relative grid grid-cols-[2rem_1fr] items-start gap-4 md:grid-cols-2 md:gap-12 ${right ? "md:[&>*:first-child]:order-2" : ""}`}>
@@ -626,7 +596,7 @@ function Timeline() {
 function Testimonials() {
   return (
     <Section id="testimonials" eyebrow="Testimonials" title="Clients love the work"
-      subtitle="Real feedback from founders and marketing leaders I've worked with.">
+      subtitle="Real feedback from clients I've worked with.">
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {testimonials.map((t, i) => (
           <motion.div key={i}
@@ -634,11 +604,11 @@ function Testimonials() {
             viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05 }}
             className="rounded-3xl glass p-6">
             <div className="flex items-center gap-1 text-secondary">
-              {Array.from({ length: t.stars }).map((_, s) => <Star key={s} className="h-4 w-4 fill-current" />)}
+               {Array.from({ length: t.rating }).map((_, s) => <Star key={s} className="h-4 w-4 fill-current" />)}
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-foreground/90">"{t.text}"</p>
+             <p className="mt-4 text-sm leading-relaxed text-foreground/90">"{t.review}"</p>
             <div className="mt-5 flex items-center gap-3 border-t border-white/5 pt-4">
-              <Avatar name={t.name} className="grid h-11 w-11 place-items-center rounded-full ring-2 ring-primary/30" />
+               <Avatar name={t.name} initials={t.initials} className="grid h-11 w-11 place-items-center rounded-full ring-2 ring-primary/30" />
               <div>
                 <div className="text-sm font-semibold">{t.name}</div>
                 <div className="text-xs text-muted-foreground">{t.role}</div>
@@ -656,7 +626,7 @@ function Stats() {
   const stats = [
     { v: 100, s: "+", l: "Projects Completed" },
     { v: 50, s: "+", l: "Happy Clients" },
-    { v: 4, s: "", l: "Core Services" },
+     { v: 6, s: "", l: "Core Services" },
     { v: 100, s: "%", l: "Client Satisfaction" },
   ];
   return (
@@ -733,8 +703,8 @@ function Contact() {
   };
 
   return (
-    <Section id="contact" eyebrow="Contact" title="Let's build something great"
-      subtitle="Tell me about your project — I'll respond within 24 hours.">
+    <Section id="contact" eyebrow="Contact" title="Let's build something great."
+      subtitle="Tell me about your project, website issue, or idea — I'll get back to you.">
       <div className="grid gap-8 lg:grid-cols-5">
         <motion.div {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
           <div className="flex flex-col items-center text-center">
@@ -835,7 +805,10 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 sm:flex sm:justify-between">
         <div className="min-w-0 flex items-center gap-2 text-sm">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-primary to-secondary text-primary-foreground text-sm font-bold">Z</span>
-          <span className="truncate text-muted-foreground">© {new Date().getFullYear()} Zain Ul Abdeen. Crafted with care.</span>
+           <div className="min-w-0 text-muted-foreground">
+             <div className="truncate">© {new Date().getFullYear()} Zain Ul Abdeen.</div>
+             <div className="truncate text-xs">{PROFESSIONAL_TITLE} · {CONTACT_EMAIL}</div>
+           </div>
         </div>
         <div className="flex shrink-0 gap-2">
           {[
