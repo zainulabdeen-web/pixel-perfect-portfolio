@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
+  BadgeCheck,
   Briefcase,
   Check,
   Code2,
@@ -21,6 +22,7 @@ import {
   ShoppingCart,
   Smartphone,
   Sparkles,
+  Star,
   Wrench,
   X,
   Zap,
@@ -47,6 +49,69 @@ const profile = profileAsset.url;
 
 type IconType = ComponentType<{ className?: string }>;
 type RoutePath = "/" | "/about" | "/services" | "/skills" | "/work" | "/contact";
+
+export const reviews = [
+  {
+    name: "Daniel Reeves",
+    role: "CTO",
+    company: "Northbeam Digital",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=96&h=96&q=80",
+    quote:
+      "Zain rebuilt our WooCommerce store ahead of schedule. The code was clean, well documented, and launched with zero regressions — exactly the engineering reliability you want on a deadline.",
+  },
+  {
+    name: "Sarah Mitchell",
+    role: "Founder",
+    company: "Bloom & Co.",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=96&h=96&q=80",
+    quote:
+      "Clear communication from day one — scope, timeline, and steady updates with no surprises. Every milestone landed on the date he committed to.",
+  },
+  {
+    name: "Michael Torres",
+    role: "Product Lead",
+    company: "Brightline Agency",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=96&h=96&q=80",
+    quote:
+      "Our checkout had been failing intermittently for months. Zain traced it to the root cause instead of patching symptoms, fixed it in two days, and documented the fix so it has not come back since.",
+  },
+  {
+    name: "Emma Clarke",
+    role: "Marketing Director",
+    company: "Vantage Labs",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=96&h=96&q=80",
+    quote:
+      "After his optimization pass our Core Web Vitals moved firmly into the green and pages load noticeably faster. Methodical, technical, and honest about what could and could not be fixed.",
+  },
+  {
+    name: "James Okafor",
+    role: "E-commerce Manager",
+    company: "Aurelia Store",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=96&h=96&q=80",
+    quote:
+      "Reliable support after delivery is what sets him apart. Every post-launch question got a same-day response, and the store has run without a single critical issue since handover.",
+  },
+  {
+    name: "Laura Bennett",
+    role: "Agency Owner",
+    company: "PixelForge Studio",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=96&h=96&q=80",
+    quote:
+      "We hand Zain overflow WordPress work on tight client deadlines and he has never missed one. Clean builds, consistent updates, and no hand-holding needed.",
+  },
+];
 
 export const services = [
   {
@@ -905,6 +970,7 @@ export function HomePage() {
           </div>
         </div>
       </section>
+      <ReviewsSection compact />
       <CTASection />
     </>
   );
