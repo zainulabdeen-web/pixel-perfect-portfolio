@@ -666,8 +666,8 @@ export function ProjectCard({ project }: { project: (typeof projects)[number] })
             <strong className="text-foreground">Solution:</strong> {project.solution}
           </p>
         </div>
-        <div className="mt-5 flex items-center gap-2.5 rounded-xl border border-accent/30 bg-accent/10 p-3 text-xs text-foreground/90">
-          <Zap className="h-4 w-4 shrink-0 text-accent" />
+        <div className="mt-5 flex items-center gap-2.5 rounded-xl border border-secondary/30 bg-secondary/10 p-3 text-xs text-foreground/90">
+          <Zap className="h-4 w-4 shrink-0 text-secondary" />
           <span>
             <strong>Focus:</strong> {project.focus}
           </span>
