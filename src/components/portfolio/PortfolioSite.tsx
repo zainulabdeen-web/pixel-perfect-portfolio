@@ -946,15 +946,68 @@ export function AboutPage() {
             <span className="text-xs font-semibold uppercase text-primary">About Me</span>
             <h2 className="mt-3 text-3xl font-bold">{PROFESSIONAL_TITLE}</h2>
             <p className="mt-5 leading-relaxed text-foreground/90">
-              I'm Zain Ul Abdeen, a WordPress and full-stack web developer with 4+ years of
-              experience building, fixing, customizing, and optimizing websites for businesses and
-              online stores.
+              I'm Zain Ul Abdeen, a WordPress and full-stack web developer with over 4 years of
+              hands-on experience helping businesses, online stores, and entrepreneurs build a
+              strong presence on the web. Since starting as a freelance web developer in 2020,
+              I've worked on more than 100 projects for 50+ clients across 20+ countries —
+              everything from complete WordPress and WooCommerce builds to careful rescue work on
+              sites that stopped working.
             </p>
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              I specialize in WordPress, WooCommerce, Elementor, troubleshooting, SEO, speed, and
-              performance. My work balances clean development, responsive experiences, clear
-              communication, and reliable support.
+              My core work is WordPress and WooCommerce development: custom websites, Elementor
+              builds, store setup, checkout customization, and payment integration. I'm also the
+              developer people call when something breaks — plugin conflicts, PHP errors, broken
+              layouts, or a site that suddenly won't load. I debug to the root cause instead of
+              patching over the problem, so fixes last.
             </p>
+            <p className="mt-4 leading-relaxed text-muted-foreground">
+              Beyond building and repairing, I focus on making websites perform: on-page and
+              technical SEO, Core Web Vitals, speed optimization, and clean, responsive front-end
+              work with HTML, CSS, JavaScript, React, and PHP. Clear communication, honest
+              timelines, and reliable support after delivery matter as much to me as the code
+              itself.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {[
+                { label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
+                { label: "Based", value: "Remote · Worldwide" },
+                { label: "Availability", value: "Open for freelance projects" },
+                { label: "Experience", value: "4+ years · 100+ projects" },
+              ].map((fact) => (
+                <div key={fact.label} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">
+                    {fact.label}
+                  </div>
+                  {fact.href ? (
+                    <a
+                      href={fact.href}
+                      className="mt-1 block truncate text-sm font-medium hover:text-primary"
+                    >
+                      {fact.value}
+                    </a>
+                  ) : (
+                    <div className="mt-1 truncate text-sm font-medium">{fact.value}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button
+                asChild
+                className="rounded-full bg-gradient-to-r from-primary to-primary/70 glow-blue"
+              >
+                <Link to="/contact">
+                  Hire Me <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-full border-white/15 bg-white/5"
+              >
+                <Link to="/work">View My Work</Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
