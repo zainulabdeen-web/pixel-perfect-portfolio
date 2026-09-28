@@ -110,6 +110,7 @@ export const skillGroups = [
   {
     title: "WordPress",
     icon: Globe,
+    desc: "Building, customizing, and repairing WordPress and WooCommerce websites.",
     skills: [
       "WordPress",
       "WooCommerce",
@@ -123,16 +124,19 @@ export const skillGroups = [
   {
     title: "Front-End Development",
     icon: Palette,
+    desc: "Clean, responsive interfaces that work well on every screen.",
     skills: ["HTML5", "CSS3", "JavaScript", "React JS", "Responsive Web Design"],
   },
   {
     title: "Backend / Development",
     icon: Server,
+    desc: "Custom functionality, integrations, and WordPress development.",
     skills: ["PHP", "REST APIs", "Database Integration", "Custom WordPress Development"],
   },
   {
     title: "SEO",
     icon: Search,
+    desc: "Structure, speed, and on-page work that helps sites get found.",
     skills: [
       "On-Page SEO",
       "Technical SEO",
@@ -144,6 +148,7 @@ export const skillGroups = [
   {
     title: "Tools",
     icon: Wrench,
+    desc: "Everyday tools for design, version control, and site monitoring.",
     skills: ["Git", "GitHub", "VS Code", "Figma", "Canva", "Google Search Console"],
   },
 ];
@@ -154,6 +159,9 @@ export const projects = [
     title: "WordPress Business Website",
     desc: "A responsive business website with Elementor customization and a clean, practical user experience.",
     tech: ["WordPress", "Elementor", "PHP"],
+    challenge: "Businesses need a professional site they can easily update.",
+    solution: "Built a responsive WordPress site with custom Elementor layouts.",
+    focus: "Easy editing and a clean experience on every device.",
     category: "WordPress",
   },
   {
@@ -161,6 +169,9 @@ export const projects = [
     title: "WooCommerce Online Store",
     desc: "A modern store concept with product customization and an optimized shopping experience.",
     tech: ["WooCommerce", "WordPress", "Elementor"],
+    challenge: "Stores need products that are easy to browse and buy.",
+    solution: "Set up WooCommerce with customized product pages and checkout flow.",
+    focus: "A smoother shopping experience.",
     category: "WooCommerce",
   },
   {
@@ -168,6 +179,9 @@ export const projects = [
     title: "WordPress Troubleshooting",
     desc: "Technical troubleshooting covering plugin conflicts, broken layouts, errors, and functionality issues.",
     tech: ["WordPress", "PHP", "Debugging"],
+    challenge: "Plugin conflicts, errors, and broken layouts stop a site working.",
+    solution: "Traced issues to their root cause and fixed them properly.",
+    focus: "A stable, working website.",
     category: "Web Development",
   },
   {
@@ -175,6 +189,9 @@ export const projects = [
     title: "SEO & Website Optimization",
     desc: "Technical and on-page improvements focused on structure, performance, usability, and search visibility.",
     tech: ["SEO", "WordPress", "Performance"],
+    challenge: "Sites with weak structure are hard for search engines to understand.",
+    solution: "Improved on-page SEO, technical structure, and usability.",
+    focus: "Better search visibility foundations.",
     category: "SEO",
   },
   {
@@ -182,6 +199,9 @@ export const projects = [
     title: "Elementor Landing Page",
     desc: "A responsive, conversion-focused landing page designed and developed with Elementor.",
     tech: ["Elementor", "WordPress", "CSS"],
+    challenge: "Campaigns need a focused page that loads fast and looks right.",
+    solution: "Designed and built a responsive landing page in Elementor.",
+    focus: "Clear message and strong mobile layout.",
     category: "Frontend",
   },
   {
@@ -189,6 +209,9 @@ export const projects = [
     title: "WordPress Speed Optimization",
     desc: "Loading-speed, Core Web Vitals, and asset improvements for a faster WordPress experience.",
     tech: ["WordPress", "Performance", "SEO"],
+    challenge: "Slow WordPress sites frustrate visitors.",
+    solution: "Optimized assets, caching, and Core Web Vitals.",
+    focus: "Faster page loads.",
     category: "WordPress",
   },
 ];
@@ -600,7 +623,8 @@ export function SkillCard({ group }: { group: (typeof skillGroups)[number] }) {
         </span>
         <h2 className="text-xl font-semibold">{group.title}</h2>
       </div>
-      <div className="mt-6 flex flex-wrap gap-2">
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{group.desc}</p>
+      <div className="mt-5 flex flex-wrap gap-2">
         {group.skills.map((skill) => (
           <span
             key={skill}
@@ -631,10 +655,23 @@ export function ProjectCard({ project }: { project: (typeof projects)[number] })
           className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
-      <div className="p-6">
-        <span className="text-xs font-semibold uppercase text-primary">{project.category}</span>
-        <h2 className="mt-2 text-xl font-semibold">{project.title}</h2>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.desc}</p>
+      <div className="p-6 sm:p-7">
+        <span className="font-mono text-xs font-semibold text-primary">{project.category}</span>
+        <h2 className="mt-1 text-xl font-semibold">{project.title}</h2>
+        <div className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
+          <p>
+            <strong className="text-foreground">Challenge:</strong> {project.challenge}
+          </p>
+          <p>
+            <strong className="text-foreground">Solution:</strong> {project.solution}
+          </p>
+        </div>
+        <div className="mt-5 flex items-center gap-2.5 rounded-xl border border-secondary/30 bg-secondary/10 p-3 text-xs text-foreground/90">
+          <Zap className="h-4 w-4 shrink-0 text-secondary" />
+          <span>
+            <strong>Focus:</strong> {project.focus}
+          </span>
+        </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {project.tech.map((item) => (
             <span
