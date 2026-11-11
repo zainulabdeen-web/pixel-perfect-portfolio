@@ -914,13 +914,12 @@ export function ReviewsSection({ compact = false }: { compact?: boolean }) {
   const shownReviews = compact ? reviews.slice(0, 3) : reviews;
 
   return (
-    <section className="py-20" aria-labelledby={compact ? "home-reviews-title" : "client-reviews-title"}>
+    <section className="py-20" aria-label="Client Reviews & Endorsements">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Client Reviews & Endorsements"
-          title="Trusted for delivery, communication, and care."
+          title={compact ? "Client Reviews" : "Trusted for delivery, communication, and care."}
           description={compact ? undefined : "Feedback on the work, the process, and the support after launch."}
-          {...(compact ? { title: "Client Reviews", align: "center" as const } : {})}
         />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {shownReviews.map((review) => (
@@ -1308,6 +1307,7 @@ export function ContactPage() {
         title="Let's Build Something Great"
         description="Tell me about your project and I'll get back to you."
       />
+      <ReviewsSection />
       <section className="pb-24 pt-8">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-5">
           <motion.aside {...fadeUp} className="rounded-3xl glass p-8 lg:col-span-2">
