@@ -882,6 +882,56 @@ export function Hero() {
   );
 }
 
+function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
+  return (
+    <motion.article {...fadeUp} className="h-full rounded-2xl border border-white/10 bg-white/5 p-6">
+      <div className="flex items-center gap-4">
+        <img
+          src={review.avatar}
+          alt={`${review.name} headshot`}
+          width={48}
+          height={48}
+          loading="lazy"
+          className="h-12 w-12 rounded-full object-cover ring-2 ring-primary/30"
+        />
+        <div className="min-w-0">
+          <h3 className="truncate font-semibold">{review.name}</h3>
+          <p className="text-sm text-muted-foreground">{review.role}</p>
+          <p className="truncate text-sm font-medium text-secondary">{review.company}</p>
+        </div>
+      </div>
+      <div className="mt-5 flex gap-1 text-secondary" aria-label={`${review.rating} out of 5 stars`}>
+        {Array.from({ length: review.rating }, (_, index) => (
+          <Star key={index} className="h-4 w-4 fill-current" aria-hidden="true" />
+        ))}
+      </div>
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">“{review.quote}”</p>
+    </motion.article>
+  );
+}
+
+export function ReviewsSection({ compact = false }: { compact?: boolean }) {
+  const shownReviews = compact ? reviews.slice(0, 3) : reviews;
+
+  return (
+    <section className="py-20" aria-labelledby={compact ? "home-reviews-title" : "client-reviews-title"}>
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeading
+          eyebrow="Client Reviews & Endorsements"
+          title="Trusted for delivery, communication, and care."
+          description={compact ? undefined : "Feedback on the work, the process, and the support after launch."}
+          {...(compact ? { title: "Client Reviews", align: "center" as const } : {})}
+        />
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {shownReviews.map((review) => (
+            <ReviewCard key={review.name} review={review} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function HomePage() {
   return (
     <>
